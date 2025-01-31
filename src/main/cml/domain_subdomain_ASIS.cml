@@ -1,0 +1,38 @@
+Domain RecoleccionProcesamientoDistribucionImagenesMedicasyDiagnosticos {
+  domainVisionStatement = "Ser el líder en la recolección, procesamiento y distribución de imágenes médicas anonimizadas para el entrenamiento de modelos de IA en el sector de la salud, garantizando la máxima calidad y seguridad de los datos."
+
+  Subdomain AnonimizacionDatos {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Garantizar la privacidad y seguridad de los datos de los pacientes mediante técnicas avanzadas de anonimización, cumpliendo con normativas como HIPAA "
+  }
+
+  Subdomain IngestionDatos {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Facilitar la recolección eficiente de datos médicos desde múltiples fuentes asegurando su integridad y disponibilidad en la nube privada de STA"
+  }
+
+  Subdomain AlmacenamientoDatos {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Ofrecer almacenamiento eficiente para las imágenes recolectadas, de esta manera tener escalabilidad permitiendo la optimización de los costos y rendimiento evaluando las políticas de almacenamiento dinámico. "
+  }
+
+  Subdomain EnriquecimientoDatos {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Mejorar la calidad y utilidad de los datos médicos mediante la generación de metadatos estructurados y etiquetas relevantes para el entrenamiento de modelos de IA. "
+  }
+
+  Subdomain CumplimientoNormativo {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Garantizar que todas las operaciones estén alineadas con regulaciones como HIPAA y GDPR."
+  }
+
+  Subdomain GestionUsuarios {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Gestión de usuarios, roles, permisos y autenticación en los sistemas de STA. Incluye la administración de cuentas de clientes, desarrolladores de IA y socios."
+  }
+
+  Subdomain VerificacionAgrupacionDatos {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Verifica que los datos sean anónimos y los agrupa de manera eficiente"
+  }
+}

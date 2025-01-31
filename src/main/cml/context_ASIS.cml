@@ -1,0 +1,37 @@
+BoundedContext ContextoDatosMedicos implements IngestionDatos, AnonimizacionDatos, EnriquecimientoDatos {
+    // Maneja la recolección, anonimización y enriquecimiento de datos médicos
+}
+
+BoundedContext ContextoDistribucionDatos implements AlmacenamientoDatos {
+    // Facilita el acceso seguro y escalable a los datos anonimizados y enriquecidos
+}
+
+BoundedContext ContextoSeguridadCumplimiento implements CumplimientoNormativo, VerificacionAgrupacionDatos {
+    // Garantiza la seguridad y el cumplimiento normativo de los datos médicos
+}
+
+BoundedContext ContextoGestionUsuarios implements GestionUsuarios {
+    // Administra usuarios, roles y permisos en el ecosistema de STA
+}
+
+ContextMap SaludTechDeLosAlpes {
+    state = AS_IS
+
+    contains ContextoDatosMedicos
+    contains ContextoDistribucionDatos
+    contains ContextoSeguridadCumplimiento
+    contains ContextoGestionUsuarios
+
+    /* Relación Cliente-Proveedor entre Gestión de Datos Médicos y Distribución de Datos */
+    ContextoDatosMedicos [U] -> [D] ContextoDistribucionDatos
+
+    /* Relación de Partnership entre Seguridad/Cumplimiento y los demás contextos */
+    ContextoSeguridadCumplimiento [P] <-> [P] ContextoDatosMedicos
+    ContextoSeguridadCumplimiento [P] <-> [P] ContextoDistribucionDatos
+    ContextoSeguridadCumplimiento [P] <-> [P] ContextoGestionUsuarios
+
+     /* Contexto de Gestión de Usuarios soporta a los demás */
+    ContextoGestionUsuarios [S] -> [C] ContextoDatosMedicos
+    ContextoGestionUsuarios [S] -> [C] ContextoDistribucionDatos
+    ContextoGestionUsuarios [S] -> [C] ContextoSeguridadCumplimiento
+}
