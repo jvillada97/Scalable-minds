@@ -54,23 +54,18 @@ BoundedContext ContextoGestionUsuarios implements GestionUsuarios {
 }
 
 ContextMap SaludTechDeLosAlpes {
-    state = AS_IS
+    state = TO_BE
 
     contains ContextoDatosMedicos
     contains ContextoDistribucionDatos
     contains ContextoSeguridadCumplimiento
-    contains ContextoGestionUsuarios
 
     /* Relación Cliente-Proveedor entre Gestión de Datos Médicos y Distribución de Datos */
     ContextoDatosMedicos [U] -> [D] ContextoDistribucionDatos
 
-    /* Relación de Partnership entre Seguridad/Cumplimiento y los demás contextos */
+    /* Relación de Partnership entre Seguridad/Cumplimiento y Gestión de Datos Médicos */
     ContextoSeguridadCumplimiento [P] <-> [P] ContextoDatosMedicos
-    ContextoSeguridadCumplimiento [P] <-> [P] ContextoDistribucionDatos
-    ContextoSeguridadCumplimiento [P] <-> [P] ContextoGestionUsuarios
 
-     /* Contexto de Gestión de Usuarios soporta a los demás */
-    ContextoGestionUsuarios [S] -> [C] ContextoDatosMedicos
-    ContextoGestionUsuarios [S] -> [C] ContextoDistribucionDatos
-    ContextoGestionUsuarios [S] -> [C] ContextoSeguridadCumplimiento
+    /* Relación Conformista entre Seguridad/Cumplimiento y Distribución de Datos */
+    ContextoSeguridadCumplimiento [C] -> [C] ContextoDistribucionDatos
 }
