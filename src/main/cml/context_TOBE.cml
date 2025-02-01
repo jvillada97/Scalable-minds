@@ -59,6 +59,7 @@ ContextMap SaludTechDeLosAlpes {
     contains ContextoDatosMedicos
     contains ContextoDistribucionDatos
     contains ContextoSeguridadCumplimiento
+    contains ContextoGestionUsuarios
 
     /* Relación Cliente-Proveedor entre Gestión de Datos Médicos y Distribución de Datos */
     ContextoDatosMedicos [U] -> [D] ContextoDistribucionDatos
@@ -66,6 +67,11 @@ ContextMap SaludTechDeLosAlpes {
     /* Relación de Partnership entre Seguridad/Cumplimiento y Gestión de Datos Médicos */
     ContextoSeguridadCumplimiento [P] <-> [P] ContextoDatosMedicos
 
-    /* Relación Conformista entre Seguridad/Cumplimiento y Distribución de Datos */
-    ContextoSeguridadCumplimiento [C] -> [C] ContextoDistribucionDatos
+    /* Relación Conformista entre Distribución de Datos y Seguridad/Cumplimiento */
+    ContextoDistribucionDatos [C] <- [S] ContextoSeguridadCumplimiento
+
+    /* Gestión de Usuarios como soporte a todos los demás */
+    ContextoGestionUsuarios [S] -> [C] ContextoDatosMedicos
+    ContextoGestionUsuarios [S] -> [C] ContextoDistribucionDatos
+    ContextoGestionUsuarios [S] -> [C] ContextoSeguridadCumplimiento
 }
