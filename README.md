@@ -1,28 +1,53 @@
-![Context Mapper](https://raw.githubusercontent.com/wiki/ContextMapper/context-mapper-dsl/logo/cm-logo-github-small.png)
-# Context Mapper Demo for Online IDE 
-[![Build](https://github.com/ContextMapper/web-ide-demo/actions/workflows/build.yml/badge.svg)](https://github.com/ContextMapper/web-ide-demo/actions) [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/ContextMapper/web-ide-demo) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+# Scalable Minds Project
 
-Welcome to Context Mapper's demo repository. It illustrates how you can configure your own repository for the usage of Context Mapper in the online IDE [Gitpod](https://www.gitpod.io/).
+## Estructura del Proyecto
 
-## Start Using Context Mapper Now
-Start the online IDE and use Context Mapper right now:
+El proyecto está organizado de la siguiente manera:
 
-<a href="https://gitpod.io/#https://github.com/ContextMapper/web-ide-demo" style="padding: 10px;">
-    <img src="https://gitpod.io/button/open-in-gitpod.svg" width="150" alt="Push" align="center">
-</a>
-<br/><br/>
+En la ruta src/main/cml podrás encontrar los siguientes archivos:
 
-## Open the Demo File
-In the folder `src/main/cml` you find a small **[CML demo](./src/main/cml/demo.cml)** (DDD sample application) where you can start to familiarize yourself with our DSL and our tools.
-You can find more info's about the tool and a complete documentation on our website [https://contextmapper.org/](https://contextmapper.org/).
+- domain_subdomain_ASIS.cml: Encontraras el dominio principal del proyecto y los subdominios identificados, cada uno con su Vision Statement.
+- context_ASIS.cml.cml: Encontraras los contextos acotados del ASIS del proyecto, su relación con los subdominios identificados y la relación entre los contextos.
+- domain_subdomain_TOBE.cml: Encontraras el dominio principal del proyecto y los subdominios identificados, cada uno con su Vision Statement.
+- context_TOBE.cml.cml: Encontraras los contextos acotados del TOBE del proyecto, su relación con los subdominios identificados y la relación entre los contextos.
 
-## Create Your Own Context Mapping Repository
-You can simply fork this repository and click the button above to start the online IDE for your repo.
+En la raíz del proyecto también encontraras el archivo .gitpod.yml con el cual puedes ejecutar el proyecto en Gitpod (https://gitpod.io/).
 
-## Useful Links
- 
- * [More example models](https://github.com/ContextMapper/context-mapper-examples)
- * [CML language reference](https://contextmapper.org/docs/language-reference/)
- * [Rapid prototyping tutorial](https://contextmapper.org/docs/rapid-ooad/)
- * [Architectural Refactorings](https://contextmapper.org/docs/architectural-refactorings/)
- * [Generators](https://contextmapper.org/docs/generators/)
+## Ejecutar el Proyecto
+
+Para ejecutar el proyecto en Gitpod, sigue los siguientes pasos:
+
+1. Abre el proyecto en Gitpod (https://gitpod.io/) utilizando el siguiente archivo:
+
+```bash
+.gitpod.yml
+```
+
+2. Abre el archivo del cual deseas visualizar el modelo CML, por ejemplo:
+
+```bash
+src/main/cml/context_ASIS.cml
+```
+
+3. Haz click derecho sobre el contenido del archivo y selecciona la opción "Generate Graphical Context Map":
+
+![alt text](image-1.png)
+
+4. Te pedirá que selecciones el tipo de archivo que deseas generar, selecciona "png" para visualizar el modelo CML en una imagen:
+
+![alt text](image-2.png)
+
+5. Se abrirá una nueva pestaña en tu VS Code con el modelo CML generado:
+
+![alt text](image.png)
+
+6. En la ruta src-gen encontraras el archivo generado con el modelo CML en los formatos seleccionados.
+
+![alt text](image-3.png)
+
+## Event Storming
+
+En la ruta src/main/event_storming podrás encontrar los siguientes archivos:
+    
+    - Lenguaje Ubicuo AS-IS.jpg: Encontraras el Lenguaje Ubicuo del proyecto en su estado actual.
+    - Lenguaje Ubicuo TO-BE - Automatizacion y expansion global.jpg: Encontraras el Lenguaje Ubicuo del proyecto en su estado futuro.
