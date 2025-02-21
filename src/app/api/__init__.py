@@ -6,7 +6,7 @@ from flask_swagger import swagger
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def importar_modelos_alchemy():
-    import app.modulos.recursos.infraestructura.dto
+    import app.modulos.imagen_medica.infraestructura.dto
     import app.modulos.provedores.infraestructura.dto
     
 def create_app(configuracion=None):
