@@ -6,10 +6,10 @@ encargados de la transformación entre formatos de dominio y DTOs
 """
 
 from app.seedwork.dominio.repositorios import Mapeador
-from app.modulos.vuelos.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
-from app.modulos.vuelos.dominio.entidades import Proveedor, Aeropuerto, Reserva
-from .dto import Reserva as ReservaDTO
-from .dto import Itinerario as ItinerarioDTO
+from app.modulos.imagen_medica.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
+from app.modulos.imagen_medica.dominio.entidades import Proveedor, Aeropuerto, Reserva
+from .dto import ImagenMedica as ImagenMedicaDTO
+from .dto import Diagnostico as DiagnosticoDTO
 
 class MapeadorReserva(Mapeador):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'

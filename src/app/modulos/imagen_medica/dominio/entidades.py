@@ -19,6 +19,7 @@ class Diagnostico(Entidad):
     patologia: Patologia = field(default_factory=Patologia)
     
 @dataclass
-class Recurso(Diagnostico):
+class ImagenMedica(Diagnostico):
     tipoArchivo: TipoArchivo = field(default_factory=TipoArchivo)
     archivo: Archivo = field(default_factory=Archivo)
+    diagnostico: Diagnostico = field(default_factory=Diagnostico)

@@ -5,5 +5,5 @@ reusables en el dominio de vuelos
 
 """
 
-from .entidades import Itinerario
+from .entidades import ImagenMedica
 
