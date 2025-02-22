@@ -18,11 +18,7 @@ imagenes_diagnosticos = db.Table(
     "imagenes_diagnosticos",
     db.Model.metadata,
     db.Column("imagen_id", db.String, db.ForeignKey("imagen_medica.id")),
-    db.Column("diagnostico_id", db.String, db.ForeignKey("diagnosticos.id")),
-    db.ForeignKeyConstraint(
-        ["imagen_id", "diagnostico_id"],
-        ["imagen_medica.id", "diagnosticos.id"]
-    )
+    db.Column("diagnostico_id", db.String, db.ForeignKey("diagnosticos.id"))
 )
 
 class ImagenMedica(db.Model):

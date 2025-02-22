@@ -7,8 +7,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 def importar_modelos_alchemy():
     import app.modulos.imagen_medica.infraestructura.dto
-    import app.modulos.provedores.infraestructura.dto
-    
+        
 def create_app(configuracion=None):
     # Init la aplicacion de Flask
     app = Flask(__name__, instance_relative_config=True)
@@ -30,11 +29,11 @@ def create_app(configuracion=None):
         db.create_all()
 
      # Importa Blueprints
-    from . import recursos
+    from . import imagen_medica
     from . import provedores
 
     # Registro de Blueprints
-    app.register_blueprint(recursos.bp)
+    app.register_blueprint(imagen_medica.bp)
     app.register_blueprint(provedores.bp)
 
     @app.route("/spec")
