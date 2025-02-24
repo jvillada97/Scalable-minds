@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from app.seedwork.aplicacion.dto import DTO
-
+from werkzeug.datastructures import FileStorage
 @dataclass(frozen=True)
 class TipoArchivoDTO(DTO):
     nombres: str
@@ -38,6 +38,6 @@ class ImagenMedicaDTO(DTO):
     # fecha_actualizacion: str = field(default_factory=str)
     id: str = field(default_factory=str)
     url_imagen: str = field(default_factory=str)
-    # tipoArchivo: TipoArchivoDTO = field(default_factory=list)
+    archivo_imagen: FileStorage = field(default_factory=FileStorage)    # tipoArchivo: TipoArchivoDTO = field(default_factory=list)
     # archivo: ArchivoDTO = field(default_factory=list)
     # diagnostico: DiagnosticoDTO = field(default_factory=list)

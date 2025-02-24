@@ -5,15 +5,15 @@ import time
 import logging
 import traceback
 
-from app.modulos.imagen_medica.infraestructura.schema.v1.eventos import EventoReservaCreada
-from app.modulos.imagen_medica.infraestructura.schema.v1.comandos import ComandoCrearReserva
+from app.modulos.imagen_medica.infraestructura.schema.v1.eventos import EventoImagenMedicaCreada
+from app.modulos.imagen_medica.infraestructura.schema.v1.comandos import ComandoCrearImagenMedica
 from app.seedwork.infraestructura import utils
 
 def suscribirse_a_eventos():
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('eventos-reserva', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='app-sub-eventos', schema=AvroSchema(EventoReservaCreada))
+        consumidor = cliente.subscribe('eventos-reserva', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='app-sub-eventos', schema=AvroSchema(EventoImagenMedicaCreada))
 
         while True:
             mensaje = consumidor.receive()
@@ -22,8 +22,9 @@ def suscribirse_a_eventos():
             consumidor.acknowledge(mensaje)     
 
         cliente.close()
-    except:
+    except Exception as e:
         logging.error('ERROR: Suscribiendose al tópico de eventos!')
+        logging.error(f'Error: {e}')
         traceback.print_exc()
         if cliente:
             cliente.close()
@@ -32,7 +33,7 @@ def suscribirse_a_comandos():
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('comandos-reserva', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='app-sub-comandos', schema=AvroSchema(ComandoCrearReserva))
+        consumidor = cliente.subscribe('comandos-reserva', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='app-sub-comandos', schema=AvroSchema(ComandoCrearImagenMedica))
 
         while True:
             mensaje = consumidor.receive()
@@ -41,8 +42,9 @@ def suscribirse_a_comandos():
             consumidor.acknowledge(mensaje)     
             
         cliente.close()
-    except:
+    except Exception as e:
         logging.error('ERROR: Suscribiendose al tópico de comandos!')
+        logging.error(f'Error: {e}')
         traceback.print_exc()
         if cliente:
             cliente.close()

@@ -7,7 +7,7 @@ En este archivo usted encontrará las entidades del dominio de cliente
 from datetime import datetime
 from app.seedwork.dominio.entidades import Entidad
 from dataclasses import dataclass, field
-
+from werkzeug.datastructures import FileStorage
 from .objetos_valor import TipoArchivo, Archivo, Etiqueta, Patologia, Modalidad
 
 
@@ -21,6 +21,7 @@ class Diagnostico(Entidad):
 @dataclass
 class ImagenMedica(Entidad):
     url_imagen: str = ""
+    archivo_imagen: FileStorage = field(default_factory=FileStorage)
     # tipoArchivo: TipoArchivo = field(default_factory=TipoArchivo)
     # archivo: Archivo = field(default_factory=Archivo)
     # diagnostico: Diagnostico = field(default_factory=Diagnostico)

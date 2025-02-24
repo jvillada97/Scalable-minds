@@ -1,11 +1,11 @@
 from pulsar.schema import *
 from app.seedwork.infraestructura.schema.v1.eventos import EventoIntegracion
 
-class ReservaCreadaPayload(Record):
-    id_reserva = String()
-    id_cliente = String()
-    estado = String()
-    fecha_creacion = Long()
+class ImagenMedicaCreadaPayload(Record):
+    id = String()
+    url_imagen = String()
+    archivo_imagen = String()
 
-class EventoReservaCreada(EventoIntegracion):
-    data = ReservaCreadaPayload()
+class EventoImagenMedicaCreada(EventoIntegracion):
+    data = ImagenMedicaCreadaPayload()    
+    

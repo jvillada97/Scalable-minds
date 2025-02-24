@@ -3,15 +3,17 @@ from app.seedwork.dominio.repositorios import Mapeador as RepMap
 from app.modulos.imagen_medica.dominio.entidades import ImagenMedica, Diagnostico
 from app.modulos.imagen_medica.dominio.objetos_valor import TipoArchivo, Archivo, Patologia, Modalidad, Etiqueta
 from .dto import ImagenMedicaDTO, DiagnosticoDTO, PatologiaDTO, ModalidadDTO, EtiquetaDTO, ArchivoDTO, TipoArchivoDTO
-
+from werkzeug.datastructures import FileStorage
+from dataclasses import field 
 from datetime import datetime
 
 class MapeadorImagenMedicaDTOJson(AppMap):   
     
     def externo_a_dto(self, externo: dict) -> ImagenMedicaDTO:
         reserva_dto = ImagenMedicaDTO()
-        
-        return reserva_dto
+        id = externo.get('id')
+        archivo_imagen = FileStorage(stream=externo.get('archivo_imagen'))        
+        return ImagenMedicaDTO(id=id,  archivo_imagen=archivo_imagen)   
 
     def dto_a_externo(self, dto: ImagenMedicaDTO) -> dict:
         return dto.__dict__
@@ -29,6 +31,7 @@ class MapeadorImagenMedica(RepMap):
         # fecha_actualizacion = entidad.fecha_actualizacion.strftime(self._FORMATO_FECHA)
         _id = str(entidad.id)
         url_imagen: str = entidad.url_imagen
+        archivo_imagen: FileStorage = entidad.url_imagen
         # tipoArchivo = TipoArchivoDTO(entidad.tipoArchivo.nombres, entidad.tipoArchivo.extension)
         # archivo = ArchivoDTO(entidad.archivo.identificador, entidad.archivo.ruta)
         # patologia = PatologiaDTO(entidad.diagnostico.patologia.nombre)
@@ -37,7 +40,7 @@ class MapeadorImagenMedica(RepMap):
         # diagnostico = DiagnosticoDTO(entidad.diagnostico.fecha_creacion, entidad.diagnostico.fecha_actualizacion,
         #                              entidad.diagnostico.id, etiqueta, modalidad, patologia)
         
-        return ImagenMedicaDTO(url_imagen, _id)
+        return ImagenMedicaDTO(_id, url_imagen, archivo_imagen)
            
 
     def dto_a_entidad(self, dto: ImagenMedicaDTO) -> ImagenMedica:

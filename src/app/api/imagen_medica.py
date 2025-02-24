@@ -1,5 +1,4 @@
 import app.seedwork.presentacion.api as api
-import app.seedwork.presentacion.api as api
 import json
 from app.modulos.imagen_medica.aplicacion.servicios import ServicioReserva
 from app.modulos.imagen_medica.aplicacion.dto import ImagenMedicaDTO
@@ -14,10 +13,20 @@ bp = api.crear_blueprint('imagen-medica', '/imagen-medica')
 @bp.route('/imagen-medica', methods=('POST',))
 def imagenMedica():
     try:
+        print("Paso 1")
         reserva_dict = request.json
-
+        id = reserva_dict.get('id')
+        url_imagen = reserva_dict.get('url_imagen')
+        archivo_imagen = request.files.get('archivo_imagen')
+        print(f"ID: {id}")
+        print(f"URL Imagen: {url_imagen}")
+        print(f"Archivo Imagen: {archivo_imagen.filename}")
         map_reserva = MapeadorImagenMedicaDTOJson()
-        reserva_dto = map_reserva.externo_a_dto(reserva_dict)
+        reserva_dto = map_reserva.externo_a_dto({
+            'id': id,
+            'url_imagen': url_imagen,
+            'archivo_imagen': archivo_imagen
+        })
 
         sr = ServicioReserva()
         dto_final = sr.crear_imagen_medica(reserva_dto)
@@ -36,3 +45,7 @@ def dar_recurso(id=None):
         return sr.obtener_imagen_medica_por_id(id)
     else:
         return [{'message': 'GET!'}]
+    
+@bp.route("/ping")
+def health():
+    return {"status": "pong"}

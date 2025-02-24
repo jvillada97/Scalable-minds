@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, url_for, redirect, jsonify
 from flask_swagger import swagger
-import app.modulos.imagen_medica.infraestructura.consumidores as consumidores
+
 # Identifica el directorio base
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -43,17 +43,16 @@ def create_app(configuracion=None):
     from app.config.db import db
 
     importar_modelos_alchemy()
+    registrar_handlers()
 
     with app.app_context():
         db.create_all()
-
+        comenzar_consumidor()
      # Importa Blueprints
     from . import imagen_medica
-    from . import provedores
 
     # Registro de Blueprints
     app.register_blueprint(imagen_medica.bp)
-    app.register_blueprint(provedores.bp)
 
     @app.route("/spec")
     def spec():
