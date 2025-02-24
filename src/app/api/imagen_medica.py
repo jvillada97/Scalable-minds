@@ -1,3 +1,4 @@
+import uuid
 import app.seedwork.presentacion.api as api
 import json
 from app.modulos.imagen_medica.aplicacion.servicios import ServicioImagenMedica
@@ -26,16 +27,15 @@ def imagenMedica():
         
         filename = secure_filename(archivo_imagen.filename)
         save_path = os.path.join('src', 'images', filename)
+        print(f"Save Path
+        : {save_path}")
+        
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         archivo_imagen.save(save_path)
         
-        propiedad_dict = request.json
-        map_propiedad = MapeadorImagenMedicaDTOJson()
-        propiedad_dto = map_propiedad.externo_a_dto(propiedad_dict)
-        
         comando = CrearImagenMedica(
             url_image=save_path,
-            id=propiedad_dto.id
+            id= uuid.uuid4()
         )
         ejecutar_commando(comando)
     
