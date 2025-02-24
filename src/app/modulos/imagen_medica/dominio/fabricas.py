@@ -11,13 +11,13 @@ from app.seedwork.dominio.repositorios import Mapeador, Repositorio
 from app.seedwork.dominio.fabricas import Fabrica
 from app.seedwork.dominio.entidades import Entidad
 from dataclasses import dataclass
-
+from app.seedwork.infraestructura.vistas import Vista
 @dataclass
 class FabricaImagenMedica(Fabrica):
-     def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
+    def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
         if isinstance(obj, Entidad):
             return mapeador.entidad_a_dto(obj)
         else:
-            imagenMedica: ImagenMedica = mapeador.dto_a_entidad(obj)          
-            return imagenMedica
+            compania: ImagenMedica = mapeador.dto_a_entidad(obj)
+            return compania
 

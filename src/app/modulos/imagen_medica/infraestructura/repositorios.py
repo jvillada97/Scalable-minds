@@ -7,7 +7,7 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 
 from app.config.db import db
 from app.modulos.imagen_medica.dominio.repositorios import RepositorioImagenMedicas
-from app.modulos.imagen_medica.dominio.entidades import ImagenMedica, Diagnostico
+from app.modulos.imagen_medica.infraestructura.dto import ImagenMedica
 from app.modulos.imagen_medica.dominio.fabricas import FabricaImagenMedica
 from app.modulos.imagen_medica.infraestructura.dto import ImagenMedica as ImagenMedicaDTO
 from app.modulos.imagen_medica.infraestructura.mapeadores import MapeadorReserva
@@ -27,8 +27,8 @@ class RepositorioImagenMedicasSQLite(RepositorioImagenMedicas):
         return self.fabrica_imagenes.crear_objeto(reserva_dto, MapeadorReserva())
 
     def obtener_todos(self) -> list[ImagenMedica]:
-        # TODO
-        raise NotImplementedError
+        companias_list = db.session.query(ImagenMedica).all()
+        return companias_list
 
     def agregar(self, reserva: ImagenMedica):
         reserva_dto = self.fabrica_imagenes.crear_objeto(reserva, MapeadorReserva())
