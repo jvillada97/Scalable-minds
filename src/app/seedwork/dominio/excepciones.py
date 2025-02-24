@@ -4,7 +4,7 @@ En este archivo usted encontrará los Excepciones reusables parte del seedwork d
 
 """
 
-from .reglas import ReglaNegocio
+from app.seedwork.dominio.reglas import ReglaNegocio
 
 class ExcepcionDominio(Exception):
     ...

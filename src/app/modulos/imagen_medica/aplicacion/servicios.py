@@ -3,12 +3,12 @@ from app.modulos.imagen_medica.dominio.entidades import ImagenMedica
 from app.modulos.imagen_medica.dominio.fabricas import FabricaImagenMedica
 from app.modulos.imagen_medica.infraestructura.fabricas import FabricaRepositorio
 from app.modulos.imagen_medica.infraestructura.repositorios import RepositorioImagenMedicas
-from .mapeadores import MapeadorImagenMedica
+from app.modulos.imagen_medica.aplicacion.mapeadores import MapeadorImagenMedica
 
 
 from .dto import ImagenMedicaDTO
 
-class ServicioReserva(Servicio):
+class ServicioImagenMedica(Servicio):
 
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()

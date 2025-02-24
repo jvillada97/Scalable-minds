@@ -5,12 +5,12 @@ En este archivo usted encontrará las entidades reusables parte del seedwork del
 """
 
 from dataclasses import dataclass, field
-from .mixins import ValidarReglasMixin
-from .reglas import IdEntidadEsInmutable
-from .excepciones import IdDebeSerInmutableExcepcion
+from app.seedwork.dominio.mixins import ValidarReglasMixin
+from app.seedwork.dominio.reglas import IdEntidadEsInmutable
+from app.seedwork.dominio.excepciones import IdDebeSerInmutableExcepcion
 from datetime import datetime
 import uuid
-from .eventos import EventoDominio
+from app.seedwork.dominio.eventos import EventoDominio
 
 @dataclass
 class Entidad:

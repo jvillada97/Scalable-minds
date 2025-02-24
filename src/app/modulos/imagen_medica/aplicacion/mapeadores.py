@@ -2,7 +2,7 @@ from app.seedwork.aplicacion.dto import Mapeador as AppMap
 from app.seedwork.dominio.repositorios import Mapeador as RepMap
 from app.modulos.imagen_medica.dominio.entidades import ImagenMedica, Diagnostico
 from app.modulos.imagen_medica.dominio.objetos_valor import TipoArchivo, Archivo, Patologia, Modalidad, Etiqueta
-from .dto import ImagenMedicaDTO, DiagnosticoDTO, PatologiaDTO, ModalidadDTO, EtiquetaDTO, ArchivoDTO, TipoArchivoDTO
+from app.modulos.imagen_medica.aplicacion.dto import ImagenMedicaDTO, DiagnosticoDTO, PatologiaDTO, ModalidadDTO, EtiquetaDTO, ArchivoDTO, TipoArchivoDTO
 from werkzeug.datastructures import FileStorage
 from dataclasses import field 
 from datetime import datetime
@@ -27,7 +27,7 @@ class MapeadorImagenMedica(RepMap):
     def entidad_a_dto(self, entidad: ImagenMedica) -> ImagenMedicaDTO:
         compania_dto = ImagenMedicaDTO()
         compania_dto.id = entidad.id
-        url_imagen = entidad.url_imagen
+        compania_dto.url_imagen = entidad.url_imagen
         # fecha_creacion = entidad.fecha_creacion.strftime(self._FORMATO_FECHA)
         # fecha_actualizacion = entidad.fecha_actualizacion.strftime(self._FORMATO_FECHA)       
         # tipoArchivo = TipoArchivoDTO(entidad.tipoArchivo.nombres, entidad.tipoArchivo.extension)

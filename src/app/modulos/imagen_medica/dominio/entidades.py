@@ -7,8 +7,7 @@ En este archivo usted encontrará las entidades del dominio de cliente
 from datetime import datetime
 from app.seedwork.dominio.entidades import Entidad, AgregacionRaiz
 from dataclasses import dataclass, field
-from werkzeug.datastructures import FileStorage
-from .objetos_valor import TipoArchivo, Archivo, Etiqueta, Patologia, Modalidad
+from app.modulos.imagen_medica.dominio.objetos_valor import TipoArchivo, Archivo, Etiqueta, Patologia, Modalidad
 
 
 from .eventos import ImagenMedicaCreada

@@ -3,7 +3,7 @@ from app.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
 from app.seedwork.aplicacion.queries import ejecutar_query as query
 from app.modulos.imagen_medica.dominio.entidades import ImagenMedica
 from app.modulos.imagen_medica.aplicacion.dto import ImagenMedicaDTO
-from .base import ImagenMedicaQueryBaseHandler
+from app.modulos.imagen_medica.aplicacion.queries.base import ImagenMedicaQueryBaseHandler
 
 
 @dataclass

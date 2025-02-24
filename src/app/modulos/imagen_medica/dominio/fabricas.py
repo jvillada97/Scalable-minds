@@ -5,8 +5,8 @@ objetos complejos del dominio de vuelos
 
 """
 
-from .entidades import ImagenMedica
-from .excepciones import TipoObjetoNoExisteEnDominioImagenMedicasExcepcion
+from app.modulos.imagen_medica.dominio.entidades import ImagenMedica
+from app.modulos.imagen_medica.dominio.excepciones import TipoObjetoNoExisteEnDominioImagenMedicasExcepcion
 from app.seedwork.dominio.repositorios import Mapeador, Repositorio
 from app.seedwork.dominio.fabricas import Fabrica
 from app.seedwork.dominio.entidades import Entidad

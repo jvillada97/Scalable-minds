@@ -1,6 +1,5 @@
 from dataclasses import dataclass, field
 from app.seedwork.aplicacion.dto import DTO
-from werkzeug.datastructures import FileStorage
 @dataclass(frozen=True)
 class TipoArchivoDTO(DTO):
     nombres: str

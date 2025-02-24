@@ -9,8 +9,8 @@ from app.config.db import db
 from app.modulos.imagen_medica.dominio.repositorios import RepositorioImagenMedicas
 from app.modulos.imagen_medica.dominio.entidades import ImagenMedica, Diagnostico
 from app.modulos.imagen_medica.dominio.fabricas import FabricaImagenMedica
-from .dto import ImagenMedica as ImagenMedicaDTO
-from .mapeadores import MapeadorReserva
+from app.modulos.imagen_medica.infraestructura.dto import ImagenMedica as ImagenMedicaDTO
+from app.modulos.imagen_medica.infraestructura.mapeadores import MapeadorReserva
 from uuid import UUID
 
 class RepositorioImagenMedicasSQLite(RepositorioImagenMedicas):

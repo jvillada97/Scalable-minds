@@ -1,6 +1,6 @@
 import app.seedwork.presentacion.api as api
 import json
-from app.modulos.imagen_medica.aplicacion.servicios import ServicioReserva
+from app.modulos.imagen_medica.aplicacion.servicios import ServicioImagenMedica
 from app.modulos.imagen_medica.aplicacion.dto import ImagenMedicaDTO
 from app.seedwork.dominio.excepciones import ExcepcionDominio
 from werkzeug.utils import secure_filename

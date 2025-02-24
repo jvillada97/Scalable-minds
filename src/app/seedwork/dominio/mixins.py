@@ -4,8 +4,8 @@ En este archivo usted encontrará las Mixins reusables parte del seedwork del pr
 
 """
 
-from .reglas import ReglaNegocio
-from .excepciones import ReglaNegocioExcepcion
+from app.seedwork.dominio.reglas import ReglaNegocio
+from app.seedwork.dominio.excepciones import ReglaNegocioExcepcion
 
 class ValidarReglasMixin:
     def validar_regla(self, regla: ReglaNegocio):

@@ -5,5 +5,5 @@ reusables en el dominio de vuelos
 
 """
 
-from .entidades import ImagenMedica
+from app.modulos.imagen_medica.dominio.entidades import ImagenMedica
 

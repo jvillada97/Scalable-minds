@@ -1,0 +1,4 @@
+from pydispatch import dispatcher
+from app.modulos.imagen_medica.aplicacion.handlers import HandlerReservaIntegracion
+
+dispatcher.connect(HandlerReservaIntegracion.handle_imagen_medica_creada, signal='ImagenMedicaCreadaDominio')

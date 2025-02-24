@@ -7,7 +7,7 @@ reusables parte del seedwork del proyecto
 
 from abc import ABC, abstractmethod
 from uuid import UUID
-from .entidades import Entidad
+from app.seedwork.dominio.entidades import Entidad
 
 class Repositorio(ABC):
     @abstractmethod

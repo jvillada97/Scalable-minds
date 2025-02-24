@@ -6,8 +6,8 @@ objetos complejos reusables parte del seedwork del proyecto
 """
 
 from abc import ABC, abstractmethod
-from .repositorios import Mapeador
-from .mixins import ValidarReglasMixin
+from app.seedwork.dominio.repositorios import Mapeador
+from app.seedwork.dominio.mixins import ValidarReglasMixin
 
 class Fabrica(ABC, ValidarReglasMixin):
     @abstractmethod

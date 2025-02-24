@@ -5,7 +5,7 @@ reusables parte del seedwork del proyecto
 
 """
 
-from .mixins import ValidarReglasMixin
+from app.seedwork.dominio.mixins import ValidarReglasMixin
  
 class Servicio(ValidarReglasMixin):
     ...

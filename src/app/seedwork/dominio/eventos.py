@@ -5,8 +5,8 @@ En este archivo usted encontrará las clases para eventos reusables parte del se
 """
 
 from dataclasses import dataclass, field
-from .reglas import IdEntidadEsInmutable
-from .excepciones import IdDebeSerInmutableExcepcion
+from app.seedwork.dominio.reglas import IdEntidadEsInmutable
+from app.seedwork.dominio.excepciones import IdDebeSerInmutableExcepcion
 from datetime import datetime
 import uuid
 

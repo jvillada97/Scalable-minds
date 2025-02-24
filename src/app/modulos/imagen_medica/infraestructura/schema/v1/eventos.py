@@ -1,4 +1,4 @@
-from pulsar.schema import *
+from pulsar.schema import Record, String
 from app.seedwork.infraestructura.schema.v1.eventos import EventoIntegracion
 
 class ImagenMedicaCreadaPayload(Record):
