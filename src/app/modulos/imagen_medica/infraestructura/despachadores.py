@@ -23,8 +23,7 @@ class Despachador:
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
         payload = ImagenMedicaCreadaPayload(
             id=evento.id,
-            url_imagen=evento.url_imagen,
-            archivo_imagen=evento.archivo_imagen
+            url_imagen=evento.url_imagen
         )
         evento_integracion = EventoImagenMedicaCreada(data=payload)
         self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoImagenMedicaCreada))

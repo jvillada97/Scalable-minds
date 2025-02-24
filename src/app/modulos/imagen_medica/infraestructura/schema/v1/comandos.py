@@ -8,3 +8,5 @@ class ComandoCrearImagenMedicaPayload(ComandoIntegracion):
 class ComandoCrearImagenMedica(ComandoIntegracion):
     data = ComandoCrearImagenMedicaPayload() 
     
+   
+    

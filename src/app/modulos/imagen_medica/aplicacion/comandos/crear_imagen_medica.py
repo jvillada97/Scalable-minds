@@ -8,11 +8,11 @@ from app.modulos.imagen_medica.dominio.entidades import ImagenMedica
 from app.seedwork.infraestructura.uow import UnidadTrabajoPuerto
 from app.modulos.imagen_medica.aplicacion.mapeadores import MapeadorImagenMedica
 from app.modulos.imagen_medica.infraestructura.repositorios import RepositorioImagenMedicas
-
+from werkzeug.datastructures import FileStorage
 @dataclass
 class CrearImagenMedica(Comando):
-    url_image: str
-    id: str
+    url_image: str = field(default_factory=str)
+    id: str = field(default_factory=str)  
 
 
 class CrearReservaHandler(CrearReservaBaseHandler):
@@ -23,7 +23,7 @@ class CrearReservaHandler(CrearReservaBaseHandler):
             ,   url_imagen=comando.url_imagen)
 
         reserva: ImagenMedica = self.fabrica_imagen_medica.crear_objeto(reserva_dto, MapeadorImagenMedica())
-        reserva.crear_reserva(reserva)
+        reserva.crear_propiedad(reserva)
 
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioImagenMedicas.__class__)
 

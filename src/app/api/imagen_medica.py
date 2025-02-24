@@ -3,10 +3,16 @@ import json
 from app.modulos.imagen_medica.aplicacion.servicios import ServicioReserva
 from app.modulos.imagen_medica.aplicacion.dto import ImagenMedicaDTO
 from app.seedwork.dominio.excepciones import ExcepcionDominio
-
+from werkzeug.utils import secure_filename
 from flask import redirect, render_template, request, session, url_for
 from flask import Response
 from app.modulos.imagen_medica.aplicacion.mapeadores import MapeadorImagenMedicaDTOJson
+from app.modulos.imagen_medica.aplicacion.comandos.crear_imagen_medica import CrearImagenMedica
+from app.modulos.imagen_medica.aplicacion.queries.obtener_todas_imagen_medicas import ObtenerTodasImagenesMedicas
+import os
+from app.seedwork.aplicacion.queries import ejecutar_query
+from app.seedwork.aplicacion.comandos import ejecutar_commando
+
 bp = api.crear_blueprint('imagen-medica', '/imagen-medica')
 
 
@@ -14,37 +20,38 @@ bp = api.crear_blueprint('imagen-medica', '/imagen-medica')
 def imagenMedica():
     try:
         print("Paso 1")
-        reserva_dict = request.json
-        id = reserva_dict.get('id')
-        url_imagen = reserva_dict.get('url_imagen')
-        archivo_imagen = request.files.get('archivo_imagen')
-        print(f"ID: {id}")
-        print(f"URL Imagen: {url_imagen}")
+        
+        archivo_imagen = request.files.get('archivo_imagen')   
         print(f"Archivo Imagen: {archivo_imagen.filename}")
-        map_reserva = MapeadorImagenMedicaDTOJson()
-        reserva_dto = map_reserva.externo_a_dto({
-            'id': id,
-            'url_imagen': url_imagen,
-            'archivo_imagen': archivo_imagen
-        })
-
-        sr = ServicioReserva()
-        dto_final = sr.crear_imagen_medica(reserva_dto)
-
-        return map_reserva.dto_a_externo(dto_final)
+        
+        filename = secure_filename(archivo_imagen.filename)
+        save_path = os.path.join('src', 'images', filename)
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+        archivo_imagen.save(save_path)
+        
+        propiedad_dict = request.json
+        map_propiedad = MapeadorImagenMedicaDTOJson()
+        propiedad_dto = map_propiedad.externo_a_dto(propiedad_dict)
+        
+        comando = CrearImagenMedica(
+            url_image=save_path,
+            id=propiedad_dto.id
+        )
+        ejecutar_commando(comando)
     
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
 
 @bp.route('/imagen-medica', methods=('GET',))
-@bp.route('/imagen-medica/<id>', methods=('GET',))
-def dar_recurso(id=None):
-    if id:
-        sr = ServicioReserva()
-        
-        return sr.obtener_imagen_medica_por_id(id)
-    else:
-        return [{'message': 'GET!'}]
+def dar_imnagenes_medicas():
+    map_propiedad = MapeadorImagenMedicaDTOJson()
+    query_resultado = ejecutar_query(ObtenerTodasImagenesMedicas())
+    resultados = []
+    
+    for propiedad in query_resultado.resultado:
+        resultados.append(map_propiedad.dto_a_externo(propiedad))
+    
+    return resultados
     
 @bp.route("/ping")
 def health():

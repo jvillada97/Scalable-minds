@@ -2,7 +2,7 @@ from app.seedwork.aplicacion.queries import QueryHandler
 from app.modulos.imagen_medica.infraestructura.fabricas import FabricaRepositorio
 from app.modulos.imagen_medica.dominio.fabricas import FabricaImagenMedica
 
-class ReservaQueryBaseHandler(QueryHandler):
+class ImagenMedicaQueryBaseHandler(QueryHandler):
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
         self._fabrica_imagen_medica: FabricaImagenMedica = FabricaImagenMedica()
