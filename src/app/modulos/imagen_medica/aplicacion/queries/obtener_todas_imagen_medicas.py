@@ -16,7 +16,7 @@ class ObtenerTodasImagenesMedicasHandler(ImagenMedicaQueryBaseHandler):
 
     def handle(self, query) -> QueryResultado:
         propiedades_dto = []
-        vista = self.fabrica_vista.crear_objeto(ImagenMedica)
+        vista = self.fabrica_imagen_medica.crear_objeto(ImagenMedica)
         propiedades = vista.obtener_todos()
         print("=================== ObtenerTodasPropiedadesHandler =========================")
         print(propiedades)

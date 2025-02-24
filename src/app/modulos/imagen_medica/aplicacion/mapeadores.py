@@ -18,7 +18,6 @@ class MapeadorImagenMedicaDTOJson(AppMap):
         return dto.__dict__
     
 class MapeadorImagenMedica(RepMap):
-    _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'  
 
     def obtener_tipo(self) -> type:        
         return ImagenMedica.__class__

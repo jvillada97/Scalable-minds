@@ -40,7 +40,7 @@ def create_app(configuracion=None):
     # Configuracion de BD
     app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    app.secret_key = '9d58f98f-3ae8-4149-a09f-3a8c2012e32c'
      # Inicializa la DB
     from app.config.db import init_db
     init_db(app)

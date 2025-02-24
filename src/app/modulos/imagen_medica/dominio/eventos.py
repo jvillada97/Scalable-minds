@@ -6,5 +6,5 @@ import uuid
 
 @dataclass
 class ImagenMedicaCreada(EventoDominio):
-    id_reserva: uuid.UUID = None
-    url_image: datetime = None
+    id: uuid.UUID = None
+    url_image: str = None

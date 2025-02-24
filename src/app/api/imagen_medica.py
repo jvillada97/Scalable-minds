@@ -36,6 +36,7 @@ def imagenMedica():
             url_image=save_path,
         )
         ejecutar_commando(comando)
+        return {"message": "Imagen médica creada exitosamente"}, 201
     
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
