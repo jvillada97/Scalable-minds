@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "264c6c44-aab9-443c-998c-851c4a5f7959",
+		"name": "Desarrollo de Apps no monoliticas",
+		"description": "Documentación y solicitudes para ejecutar los endpoints del backend para probar la implementación del servicio de ingestión y distribución de datos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30550594"
+	},
+	"item": [
+		{
+			"name": "Obtener imagen medica",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/imagen-medica/hola",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"imagen-medica",
+						"hola"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear imagen medica",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fecha_creacion\": \"2025-02-22T12:00:00Z\",\n  \"fecha_actualizacion\": \"2025-02-22T13:00:00Z\",\n  \"id\": \"123456\",\n  \"tipoArchivo\": [\n    {\n      \"nombres\": \"DICOM\",\n      \"extension\": \"Imagen médica en formato DICOM\"\n    }\n  ],\n  \"archivo\": [\n    {\n      \"identificador\": \"imagen_medica_123.jpg\",\n      \"ruta\": \"/test\"\n    }\n  ],\n  \"diagnostico\": [\n    {\n      \"fecha_creacion\": \"hoy\",\n      \"fecha_actualizacion\": \"hoy\",\n      \"id\": \"123456\",\n      \"etiqueta\": [\n        {\n            \"identificador\": \"imagen_medica_123.jpg\"\n        }\n      ],\n      \"modalidad\": [\n        {\n            \"nombre\": \"hola\"\n        }\n      ],\n      \"patologia\": [\n        {\n            \"nombre\": \"hola\"\n        }\n      ]\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/imagen-medica",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"imagen-medica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spec",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/spec",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"spec"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
