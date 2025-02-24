@@ -1,13 +1,32 @@
 import os
 from flask import Flask, render_template, request, url_for, redirect, jsonify
 from flask_swagger import swagger
-
+import app.modulos.imagen_medica.infraestructura.consumidores as consumidores
 # Identifica el directorio base
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+def registrar_handlers():
+    import app.modulos.imagen_medica.aplicacion
+    
 def importar_modelos_alchemy():
     import app.modulos.imagen_medica.infraestructura.dto
-        
+    
+def comenzar_consumidor():
+    """
+    Este es un código de ejemplo. Aunque esto sea funcional puede ser un poco peligroso tener 
+    threads corriendo por si solos. Mi sugerencia es en estos casos usar un verdadero manejador
+    de procesos y threads como Celery.
+    """
+
+    import threading
+    import app.modulos.imagen_medica.infraestructura.consumidores as imagen_medica
+
+    # Suscripción a eventos
+    threading.Thread(target=imagen_medica.suscribirse_a_eventos).start()
+
+    # Suscripción a comandos
+    threading.Thread(target=imagen_medica.suscribirse_a_comandos).start()
+            
 def create_app(configuracion=None):
     # Init la aplicacion de Flask
     app = Flask(__name__, instance_relative_config=True)

@@ -18,16 +18,17 @@ imagenes_diagnosticos = db.Table(
     "imagenes_diagnosticos",
     db.Model.metadata,
     db.Column("imagen_id", db.String, db.ForeignKey("imagen_medica.id")),
-    db.Column("diagnostico_id", db.String, db.ForeignKey("diagnosticos.id"))
+    db.Column("url_imagen", db.String),
+    # db.Column("diagnostico_id", db.String, db.ForeignKey("diagnosticos.id"))
 )
 
 class ImagenMedica(db.Model):
     __tablename__ = "imagen_medica"
     id = db.Column(db.String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    fecha_creacion = db.Column(db.DateTime, nullable=False)
-    tipo_imagen = db.Column(db.String, nullable=False)
+    # fecha_creacion = db.Column(db.DateTime, nullable=False)
+    # tipo_imagen = db.Column(db.String, nullable=False)
     url_imagen = db.Column(db.String, nullable=False)
-    diagnosticos = db.relationship('Diagnostico', secondary=imagenes_diagnosticos, backref='imagenes_medicas')
+    # diagnosticos = db.relationship('Diagnostico', secondary=imagenes_diagnosticos, backref='imagenes_medicas')
 
 class Diagnostico(db.Model):
     __tablename__ = "diagnosticos"

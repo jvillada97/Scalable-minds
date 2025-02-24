@@ -33,6 +33,6 @@ def dar_recurso(id=None):
     if id:
         sr = ServicioReserva()
         
-        return sr.obtener_recurso_por_id(id)
+        return sr.obtener_imagen_medica_por_id(id)
     else:
         return [{'message': 'GET!'}]

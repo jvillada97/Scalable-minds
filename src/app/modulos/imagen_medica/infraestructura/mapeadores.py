@@ -20,11 +20,11 @@ class MapeadorReserva(Mapeador):
     def entidad_a_dto(self, entidad: ImagenMedica) -> ImagenMedicaDTO:
         
         reserva_dto = ImagenMedicaDTO()
-        reserva_dto.fecha_creacion = entidad.fecha_creacion
+        reserva_dto.url_imagen = entidad.url_imagen
         reserva_dto.id = str(entidad.id)   
         return reserva_dto
 
     def dto_a_entidad(self, dto: ImagenMedicaDTO) -> ImagenMedica:
-        reserva = ImagenMedica(dto.id, dto.fecha_creacion)   
+        reserva = ImagenMedica(dto.id, dto.url_imagen)   
         
         return reserva

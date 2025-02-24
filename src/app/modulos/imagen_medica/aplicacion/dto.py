@@ -34,9 +34,10 @@ class DiagnosticoDTO(DTO):
     
 @dataclass(frozen=True)
 class ImagenMedicaDTO(DTO):
-    fecha_creacion: str = field(default_factory=str)
-    fecha_actualizacion: str = field(default_factory=str)
+    # fecha_creacion: str = field(default_factory=str)
+    # fecha_actualizacion: str = field(default_factory=str)
     id: str = field(default_factory=str)
-    tipoArchivo: TipoArchivoDTO = field(default_factory=list)
-    archivo: ArchivoDTO = field(default_factory=list)
-    diagnostico: DiagnosticoDTO = field(default_factory=list)
+    url_imagen: str = field(default_factory=str)
+    # tipoArchivo: TipoArchivoDTO = field(default_factory=list)
+    # archivo: ArchivoDTO = field(default_factory=list)
+    # diagnostico: DiagnosticoDTO = field(default_factory=list)
