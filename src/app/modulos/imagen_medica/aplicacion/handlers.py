@@ -8,7 +8,7 @@ class HandlerReservaIntegracion(Handler):
     def handle_imagen_medica_creada(evento):
         try:
             despachador = Despachador()
-            despachador.publicar_evento(evento, 'eventos-imagen_medica')
+            despachador.publicar_evento(evento, 'eventos-imagen-medica')
         except Exception as e:
             print(f"ERROR AL PUBLICAR {e}")
 

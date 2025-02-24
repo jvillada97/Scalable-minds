@@ -26,7 +26,6 @@ class MapeadorImagenMedica(RepMap):
 
     def entidad_a_dto(self, entidad: ImagenMedica) -> ImagenMedicaDTO:
         compania_dto = ImagenMedicaDTO()
-        compania_dto.id = entidad.id
         compania_dto.url_imagen = entidad.url_imagen
         # fecha_creacion = entidad.fecha_creacion.strftime(self._FORMATO_FECHA)
         # fecha_actualizacion = entidad.fecha_actualizacion.strftime(self._FORMATO_FECHA)       

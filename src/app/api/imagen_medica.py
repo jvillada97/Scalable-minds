@@ -27,15 +27,13 @@ def imagenMedica():
         
         filename = secure_filename(archivo_imagen.filename)
         save_path = os.path.join('src', 'images', filename)
-        print(f"Save Path
-        : {save_path}")
+        print(save_path)
         
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         archivo_imagen.save(save_path)
         
         comando = CrearImagenMedica(
             url_image=save_path,
-            id= uuid.uuid4()
         )
         ejecutar_commando(comando)
     

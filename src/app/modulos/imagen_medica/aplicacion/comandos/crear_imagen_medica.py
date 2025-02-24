@@ -11,15 +11,13 @@ from app.modulos.imagen_medica.infraestructura.repositorios import RepositorioIm
 @dataclass
 class CrearImagenMedica(Comando):
     url_image: str = field(default_factory=str)
-    id: str = field(default_factory=str)  
 
 
 class CrearReservaHandler(CrearReservaBaseHandler):
     
     def handle(self, comando: CrearImagenMedica):
         reserva_dto = ImagenMedicaDTO(
-                id=comando.id
-            ,   url_imagen=comando.url_image)
+               url_imagen=comando.url_image)
 
         reserva: ImagenMedica = self.fabrica_imagen_medica.crear_objeto(reserva_dto, MapeadorImagenMedica())
         reserva.crear_propiedad(reserva)

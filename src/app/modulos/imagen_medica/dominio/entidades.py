@@ -27,10 +27,8 @@ class ImagenMedica(AgregacionRaiz):
     # diagnostico: Diagnostico = field(default_factory=Diagnostico)
     def crear_propiedad(self, propiedad: "ImagenMedica"):
         self.url_imagen = propiedad.url_imagen,   
-        self.id = propiedad.id
 
         self.agregar_evento(ImagenMedicaCreada(
             url_imagen = str(self.url_imagen),  
-            id=str(self.id) 
         )
     )
