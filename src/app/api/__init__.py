@@ -5,6 +5,12 @@ from flask_swagger import swagger
 # Identifica el directorio base
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+# Constantes
+DB_USER = os.environ["POSTGRES_USER"]
+DB_PASSWORD = os.environ["POSTGRES_PASSWORD"]
+DB_HOST = os.environ["POSTGRES_HOST"]
+DB_PORT = os.environ["POSTGRES_PORT"]
+DB_NAME =  os.environ["POSTGRES_DB"]
 def registrar_handlers():
     import app.modulos.imagen_medica.aplicacion
     
@@ -32,8 +38,7 @@ def create_app(configuracion=None):
     app = Flask(__name__, instance_relative_config=True)
 
     # Configuracion de BD
-    app.config['SQLALCHEMY_DATABASE_URI'] =\
-            'sqlite:///' + os.path.join(basedir, 'database.db')
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
      # Inicializa la DB

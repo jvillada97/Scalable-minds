@@ -26,7 +26,7 @@ services:
     networks:
       - pulsar
     environment:
-      POSTGRES_DB: proveedores
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_HOST: localhost
@@ -46,9 +46,8 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - DATABASE_HOST=postgres
       - BROKER_HOST=pulsar
-      - POSTGRES_DB=proveedores
+      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_HOST=postgres

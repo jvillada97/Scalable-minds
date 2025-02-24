@@ -43,7 +43,6 @@ class MapeadorImagenMedica(RepMap):
     def dto_a_entidad(self, dto: ImagenMedicaDTO) -> ImagenMedica:
         imagenMedica = ImagenMedica()
         imagenMedica.url_imagen = dto.url_imagen
-        imagenMedica.id = dto.id
         # imagenMedica.tipoArchivo = TipoArchivo(dto.tipoArchivo.nombres, dto.tipoArchivo.extension)
         # imagenMedica.archivo = Archivo(dto.archivo.identificador, dto.archivo.ruta)
         # imagenMedica.diagnostico = Diagnostico(dto.diagnostico.fecha_creacion, dto.diagnostico.fecha_actualizacion,
