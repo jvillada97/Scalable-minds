@@ -39,7 +39,7 @@ services:
   redis-commander:
     image: "rediscommander/redis-commander:latest"
     environment:
-      - REDIS_HOSTS=local:redis:6379
+      - REDIS_HOSTS=local:redis_prop:6379
     ports:
       - "8081:8081"
     networks:
@@ -60,6 +60,27 @@ services:
       RABBITMQ_DEFAULT_PASS: propiedadesalpes2024
     networks:
       - pulsar
+
+
+  # Init cluster metadata
+  pulsar-init:
+    container_name: pulsar-init
+    hostname: pulsar-init
+    image: apachepulsar/pulsar:latest
+    environment:
+      PULSAR_MEM: "-Xms512m -Xmx512m"
+    command: ["bin/pulsar", "standalone"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/admin/v2/clusters"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    networks:
+      - pulsar
+
   # Servicios de Proveedores Alpes
   imagenes_medicas:
     container_name: imagenes_medicas
@@ -93,6 +114,8 @@ services:
         condition: service_started
       redis_prop:
         condition: service_healthy
+      pulsar-init:
+        condition: service_healthy
 
 
 
@@ -118,24 +141,6 @@ services:
     networks:
       - pulsar
 
-  # Init cluster metadata
-  pulsar-init:
-    container_name: pulsar-init
-    hostname: pulsar-init
-    image: apachepulsar/pulsar:latest
-    command: >
-      bin/pulsar initialize-cluster-metadata \
-               --cluster cluster-a \
-               --zookeeper zookeeper:2181 \
-               --configuration-store zookeeper:2181 \
-               --web-service-url http://broker:8080 \
-               --broker-service-url pulsar://broker:6650
-    depends_on:
-      zookeeper:
-        condition: service_healthy
-    networks:
-      - pulsar
-
   # Start bookie
   bookie:
     image: apachepulsar/pulsar:latest
@@ -151,7 +156,7 @@ services:
       zookeeper:
         condition: service_healthy
       pulsar-init:
-        condition: service_completed_successfully
+        condition: service_healthy
     volumes:
       - ./data/bookkeeper:/pulsar/data/bookkeeper
     command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf && exec bin/pulsar bookie"
