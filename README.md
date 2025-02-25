@@ -109,3 +109,4 @@ docker exec -it imagenes_medicas pytest
 ```bash
 docker-compose down
 ```
+## Licencia
