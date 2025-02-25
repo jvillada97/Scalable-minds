@@ -3,7 +3,7 @@
 /bin
 /src-gen
 /out
-
+/data
 # Log file
 *.log
 

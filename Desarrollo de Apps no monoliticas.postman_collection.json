@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "746175cd-383e-4803-a998-25d8f040b129",
+		"name": "Desarrollo de Apps no monoliticas",
+		"description": "Documentación y solicitudes para ejecutar los endpoints del backend para probar la implementación del servicio de ingestión y distribución de datos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38231226",
+		"_collection_link": "https://cloud7-7346.postman.co/workspace/Cloud-Workspace~a3e49628-c461-47d7-b460-9d221d96b3e9/collection/38231226-746175cd-383e-4803-a998-25d8f040b129?action=share&source=collection_link&creator=38231226"
+	},
+	"item": [
+		{
+			"name": "Obtener imagen medica",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/imagen-medica",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"imagen-medica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear imagen medica",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "archivo_imagen",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/Trabajo_final-Contexto.drawio.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/imagen-medica",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"imagen-medica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spec",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/spec",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"spec"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
