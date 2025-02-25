@@ -1,53 +1,111 @@
 # Scalable Minds Project
 
-## Estructura del Proyecto
+Este proyecto es un sistema de gestión de imágenes médicas que utiliza Flask como framework backend y PostgreSQL como base de datos. También hace uso de Apache Pulsar como sistema de mensajería.
 
-El proyecto está organizado de la siguiente manera:
-
-En la ruta src/main/cml podrás encontrar los siguientes archivos:
-
-- domain_subdomain_ASIS.cml: Encontraras el dominio principal del proyecto y los subdominios identificados, cada uno con su Vision Statement.
-- context_ASIS.cml.cml: Encontraras los contextos acotados del ASIS del proyecto, su relación con los subdominios identificados y la relación entre los contextos.
-- domain_subdomain_TOBE.cml: Encontraras el dominio principal del proyecto y los subdominios identificados, cada uno con su Vision Statement.
-- context_TOBE.cml.cml: Encontraras los contextos acotados del TOBE del proyecto, su relación con los subdominios identificados y la relación entre los contextos.
-
-En la raíz del proyecto también encontraras el archivo .gitpod.yml con el cual puedes ejecutar el proyecto en Gitpod (https://gitpod.io/).
-
-## Ejecutar el Proyecto
-
-Para ejecutar el proyecto en Gitpod, sigue los siguientes pasos:
-
-1. Abre el proyecto en Gitpod (https://gitpod.io/) utilizando el siguiente archivo:
+## 💁️ Estructura del Proyecto
 
 ```bash
-.gitpod.yml
+src/
+│── app/
+│   ├── api/                # Endpoints de la API
+│   │   ├── imagen_medica.py
+│   │   ├── proveedores.py
+│   │   └── __init__.py
+│   ├── config/             # Configuración de la base de datos y otros servicios
+│   │   ├── db.py
+│   │   ├── uow.py
+│   │   └── __init__.py
+│   ├── modulos/            # Módulos específicos del dominio
+│   │   ├── imagen_medica/
+│   │   └── __init__.py
+│   ├── seedwork/           # Implementaciones reutilizables
+│   │   ├── aplicacion/
+│   │   │   ├── comandos.py
+│   │   │   ├── dto.py
+│   │   │   ├── handlers.py
+│   │   │   ├── queries.py
+│   │   │   ├── servicios.py
+│   │   │   └── __init__.py
+│   │   ├── dominio/
+│   │   │   ├── entidades.py
+│   │   │   ├── eventos.py
+│   │   │   ├── excepciones.py
+│   │   │   ├── fabricas.py
+│   │   │   ├── mixins.py
+│   │   │   ├── objetos_valor.py
+│   │   │   ├── reglas.py
+│   │   │   ├── repositorios.py
+│   │   │   ├── servicios.py
+│   │   │   └── __init__.py
+│   │   ├── infraestructura/
+│   │   │   ├── schema/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── uow.py
+│   │   │   │   ├── utils.py
+│   │   │   │   └── vistas.py
+│   │   ├── presentacion/
+│   │   │   ├── __init__.py
+│   │   │   ├── api.py
+│   │   │   └── __init__.py
 ```
 
-2. Abre el archivo del cual deseas visualizar el modelo CML, por ejemplo:
+## 🛠️ Tecnologías Utilizadas
+- Python 3
+
+- Flask como framework web
+
+- PostgreSQL como base de datos
+
+- Apache Pulsar como sistema de mensajería
+
+- Docker para la orquestación de servicios
+
+## 🚀 Instalación y Ejecución
+1️⃣ Prerrequisitos
+
+Asegúrate de tener instalado:
+
+- Docker
+
+- Docker Compose
+
+2️⃣ Ejecutar con Docker
+
+Para levantar los servicios utilizando docker-compose, ejecuta:
 
 ```bash
-src/main/cml/context_ASIS.cml
+docker-compose up --build
 ```
 
-3. Haz click derecho sobre el contenido del archivo y selecciona la opción "Generate Graphical Context Map":
+Esto iniciará los siguientes servicios:
 
-![alt text](image-1.png)
+- PostgreSQL en el puerto 5432
 
-4. Te pedirá que selecciones el tipo de archivo que deseas generar, selecciona "png" para visualizar el modelo CML en una imagen:
+- Apache Pulsar en los puertos 6650 y 8080
 
-![alt text](image-2.png)
+- Aplicación de imágenes médicas en el puerto 5001
 
-5. Se abrirá una nueva pestaña en tu VS Code con el modelo CML generado:
+3️⃣ Verificación de Servicios
 
-![alt text](image.png)
+Después de iniciar los contenedores, verifica que los servicios están corriendo:
+```bash
+docker ps
+```
+También puedes acceder a los logs de la aplicación:
+```bash
+docker logs imagenes_medicas
+```
+Si necesitas acceder a la base de datos PostgreSQL desde tu máquina, usa:
+```bash
+psql -h localhost -U postgres -d postgres
+```
+4️⃣ Pruebas
 
-6. En la ruta src-gen encontraras el archivo generado con el modelo CML en los formatos seleccionados.
-
-![alt text](image-3.png)
-
-## Event Storming
-
-En la ruta src/main/event_storming podrás encontrar los siguientes archivos:
-    
-    - Lenguaje Ubicuo AS-IS.jpg: Encontraras el Lenguaje Ubicuo del proyecto en su estado actual.
-    - Lenguaje Ubicuo TO-BE - Automatizacion y expansion global.jpg: Encontraras el Lenguaje Ubicuo del proyecto en su estado futuro.
+Para ejecutar las pruebas unitarias del proyecto, usa:
+```bash
+docker exec -it imagenes_medicas pytest
+```
+5️⃣ Detener los Contenedores
+```bash
+docker-compose down
+```
