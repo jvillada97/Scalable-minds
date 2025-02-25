@@ -1,3 +1,4 @@
+
 # Scalable Minds Project
 
 Este proyecto es un sistema de gestión de imágenes médicas que utiliza Flask como framework backend y PostgreSQL como base de datos. También hace uso de Apache Pulsar como sistema de mensajería.
