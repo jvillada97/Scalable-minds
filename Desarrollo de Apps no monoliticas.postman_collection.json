@@ -1,10 +1,11 @@
 {
 	"info": {
-		"_postman_id": "264c6c44-aab9-443c-998c-851c4a5f7959",
+		"_postman_id": "746175cd-383e-4803-a998-25d8f040b129",
 		"name": "Desarrollo de Apps no monoliticas",
 		"description": "Documentación y solicitudes para ejecutar los endpoints del backend para probar la implementación del servicio de ingestión y distribución de datos",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30550594"
+		"_exporter_id": "38231226",
+		"_collection_link": "https://cloud7-7346.postman.co/workspace/Cloud-Workspace~a3e49628-c461-47d7-b460-9d221d96b3e9/collection/38231226-746175cd-383e-4803-a998-25d8f040b129?action=share&source=collection_link&creator=38231226"
 	},
 	"item": [
 		{
@@ -13,15 +14,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5001/imagen-medica/hola",
+					"raw": "http://localhost:5001/imagen-medica",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
-						"imagen-medica",
-						"hola"
+						"imagen-medica"
 					]
 				}
 			},
@@ -33,13 +33,14 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"fecha_creacion\": \"2025-02-22T12:00:00Z\",\n  \"fecha_actualizacion\": \"2025-02-22T13:00:00Z\",\n  \"id\": \"123456\",\n  \"tipoArchivo\": [\n    {\n      \"nombres\": \"DICOM\",\n      \"extension\": \"Imagen médica en formato DICOM\"\n    }\n  ],\n  \"archivo\": [\n    {\n      \"identificador\": \"imagen_medica_123.jpg\",\n      \"ruta\": \"/test\"\n    }\n  ],\n  \"diagnostico\": [\n    {\n      \"fecha_creacion\": \"hoy\",\n      \"fecha_actualizacion\": \"hoy\",\n      \"id\": \"123456\",\n      \"etiqueta\": [\n        {\n            \"identificador\": \"imagen_medica_123.jpg\"\n        }\n      ],\n      \"modalidad\": [\n        {\n            \"nombre\": \"hola\"\n        }\n      ],\n      \"patologia\": [\n        {\n            \"nombre\": \"hola\"\n        }\n      ]\n    }\n  ]\n}\n",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "archivo_imagen",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/Trabajo_final-Contexto.drawio.png"
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "http://localhost:5001/imagen-medica",
