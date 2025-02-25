@@ -106,7 +106,10 @@ Para ejecutar las pruebas unitarias del proyecto, usa:
 ```bash
 docker exec -it imagenes_medicas pytest
 ```
-5️⃣ Detener los Contenedores
+5️⃣ Ejecutar endpoints en postman
+Para probar los diferentes endpoints construidos en la carpeta raiz acceder al archivo "Desarrollo de Apps no monoliticas.postman_collection.json" y copiar su contenido. Abrir postman y con la opción "import" copiar el contenido del archivo. La documentación de la respuesta de los endpoints se encuentra en https://documenter.getpostman.com/view/30550594/2sAYdeLBWp 
+
+ Detener los Contenedores
 ```bash
 docker-compose down
 ```
