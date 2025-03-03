@@ -8,8 +8,11 @@ import traceback
 from app.modulos.imagen_medica.infraestructura.schema.v1.eventos import EventoImagenMedicaCreada
 from app.modulos.imagen_medica.infraestructura.schema.v1.comandos import ComandoCrearImagenMedica
 from app.seedwork.infraestructura import utils
+from app.seedwork.infraestructura.proyecciones import ejecutar_proyeccion
+from app.modulos.imagen_medica.infraestructura.proyecciones import ProyeccionImagenesLista, ProyeccionImagenesTotales
 
-def suscribirse_a_eventos():
+
+def suscribirse_a_eventos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
@@ -17,8 +20,12 @@ def suscribirse_a_eventos():
 
         while True:
             mensaje = consumidor.receive()
-            print(f'Evento recibido: {mensaje.value().data}')
+            datos = mensaje.value().data
 
+            print(f'Evento recibido: {mensaje.value().data}')
+            ejecutar_proyeccion(ProyeccionImagenesTotales(datos.fecha_creacion, ProyeccionImagenesTotales.ADD), app=app)
+            ejecutar_proyeccion(ProyeccionImagenesLista(datos.id_imagen, datos.url_imagen, datos.fecha_creacion, datos.fecha_creacion), app=app)
+            
             consumidor.acknowledge(mensaje)     
 
         cliente.close()

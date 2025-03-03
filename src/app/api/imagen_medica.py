@@ -22,7 +22,9 @@ bp = api.crear_blueprint('imagen-medica', '/imagen-medica')
 
 @bp.route('/', methods=('POST',))
 def imagenMedica():
-    try:        
+    try:  
+           
+        session['uow_metodo'] = 'pulsar'   
         archivo_imagen = request.files.get('archivo_imagen')   
         
         filename = secure_filename(archivo_imagen.filename)

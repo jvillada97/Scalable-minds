@@ -25,30 +25,14 @@ class MapeadorImagenMedica(RepMap):
 
     def entidad_a_dto(self, entidad: ImagenMedica) -> ImagenMedicaDTO:
         compania_dto = ImagenMedicaDTO()
-        compania_dto.url_imagen = entidad.url_imagen
-        # fecha_creacion = entidad.fecha_creacion.strftime(self._FORMATO_FECHA)
-        # fecha_actualizacion = entidad.fecha_actualizacion.strftime(self._FORMATO_FECHA)       
-        # tipoArchivo = TipoArchivoDTO(entidad.tipoArchivo.nombres, entidad.tipoArchivo.extension)
-        # archivo = ArchivoDTO(entidad.archivo.identificador, entidad.archivo.ruta)
-        # patologia = PatologiaDTO(entidad.diagnostico.patologia.nombre)
-        # modalidad = ModalidadDTO(entidad.diagnostico.modalidad.nombre)
-        # etiqueta = EtiquetaDTO(entidad.diagnostico.etiqueta.identificador)
-        # diagnostico = DiagnosticoDTO(entidad.diagnostico.fecha_creacion, entidad.diagnostico.fecha_actualizacion,
-        #                              entidad.diagnostico.id, etiqueta, modalidad, patologia)
+        compania_dto.url_imagen = entidad.url_imagen  
         
         return compania_dto
            
 
     def dto_a_entidad(self, dto: ImagenMedicaDTO) -> ImagenMedica:
         imagenMedica = ImagenMedica()
-        imagenMedica.url_imagen = dto.url_imagen
-        # imagenMedica.tipoArchivo = TipoArchivo(dto.tipoArchivo.nombres, dto.tipoArchivo.extension)
-        # imagenMedica.archivo = Archivo(dto.archivo.identificador, dto.archivo.ruta)
-        # imagenMedica.diagnostico = Diagnostico(dto.diagnostico.fecha_creacion, dto.diagnostico.fecha_actualizacion,
-        #                              dto.diagnostico.id)
-        # imagenMedica.diagnostico.patologia = Patologia(dto.diagnostico.patologia.nombre)
-        # imagenMedica.diagnostico.modalidad = Modalidad(dto.diagnostico.modalidad.nombre)
-        # imagenMedica.diagnostico.etiqueta = Etiqueta(dto.diagnostico.etiqueta.identificador)
+        imagenMedica.url_imagen = dto.url_imagen     
         
         return imagenMedica
 

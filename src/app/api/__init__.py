@@ -13,9 +13,14 @@ DB_PORT = os.environ["POSTGRES_PORT"]
 DB_NAME =  os.environ["POSTGRES_DB"]
 def registrar_handlers():
     import app.modulos.imagen_medica.aplicacion
+    import app.modulos.proveedor.aplicacion
+    import app.modulos.anonimizacion.aplicacion
+    
     
 def importar_modelos_alchemy():
     import app.modulos.imagen_medica.infraestructura.dto
+    import app.modulos.proveedor.infraestructura.dto
+    import app.modulos.anonimizacion.infraestructura.dto
     
 def comenzar_consumidor():
     """
@@ -26,12 +31,17 @@ def comenzar_consumidor():
 
     import threading
     import app.modulos.imagen_medica.infraestructura.consumidores as imagen_medica
-
+    import app.modulos.proveedor.infraestructura.consumidores as provedor
+    import app.modulos.anonimizacion.infraestructura.consumidores as anonimizacion
     # Suscripción a eventos
     threading.Thread(target=imagen_medica.suscribirse_a_eventos).start()
+    threading.Thread(target=provedor.suscribirse_a_eventos).start()
+    threading.Thread(target=anonimizacion.suscribirse_a_eventos).start()
 
     # Suscripción a comandos
     threading.Thread(target=imagen_medica.suscribirse_a_comandos).start()
+    threading.Thread(target=provedor.suscribirse_a_comandos).start()
+    threading.Thread(target=anonimizacion.suscribirse_a_comandos).start()
             
 def create_app(configuracion=None):
     # Init la aplicacion de Flask
@@ -55,9 +65,13 @@ def create_app(configuracion=None):
         comenzar_consumidor()
      # Importa Blueprints
     from . import imagen_medica
+    from . import provedor
+    from . import anonimizacion
 
     # Registro de Blueprints
     app.register_blueprint(imagen_medica.bp)
+    app.register_blueprint(provedor.bp)
+    app.register_blueprint(anonimizacion.bp)
 
     @app.route("/spec")
     def spec():

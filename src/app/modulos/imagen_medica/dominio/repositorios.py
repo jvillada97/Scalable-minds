@@ -11,3 +11,7 @@ from app.seedwork.dominio.repositorios import Repositorio
 class RepositorioImagenMedicas(Repositorio, ABC):
     ...
 
+
+class RepositorioEventosImagenMedicas(Repositorio, ABC):
+    ...
+    
