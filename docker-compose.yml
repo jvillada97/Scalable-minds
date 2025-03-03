@@ -91,3 +91,29 @@ services:
         condition: service_healthy
       pulsar:
         condition: service_healthy
+
+# Servicios de Proveedores
+  proveedores_alpes:
+    container_name: proveedores_alpes
+    hostname: proveedores_alpes
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: proveedor.Dockerfile
+    environment:
+      - BROKER_HOST=pulsar
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+    ports:
+      - "5002:5002"
+    networks:
+      - pulsar
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pulsar:
+        condition: service_healthy
+
