@@ -1,4 +1,5 @@
 FROM python:3.9-slim
+
 ENV PYTHONUNBUFFERED 1
 EXPOSE 5002/tcp
 
