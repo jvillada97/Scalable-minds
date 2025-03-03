@@ -116,6 +116,13 @@ docker-compose down
 6️⃣ Ejecutar endpoints en postman
 Para probar los diferentes endpoints construidos en la carpeta raiz acceder al archivo "Desarrollo de Apps no monoliticas.postman_collection.json" y copiar su contenido. Abrir postman y con la opción "import" copiar el contenido del archivo. La documentación de la respuesta de los endpoints se encuentra en https://documenter.getpostman.com/view/30550594/2sAYdeLBWp 
 
+## 🐥 BFF
+Para ejecutar el bff
+```bash
+uvicorn bff_web.main:app --host localhost --port 8003 --reload
+```
+
+
 ## 📄 Licencia
 
 Este proyecto está bajo la licencia MIT. Puedes ver más detalles en el archivo LICENSE.
