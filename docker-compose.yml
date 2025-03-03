@@ -17,7 +17,12 @@ services:
     command: ["bin/pulsar", "standalone"]
     networks:
       - pulsar
-  
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/admin/v2/clusters || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   postgres:
     image: postgres:alpine
     container_name: postgres
@@ -60,32 +65,7 @@ services:
       postgres:
         condition: service_healthy
       pulsar:
-        condition: service_completed_successfully
-
-  # Servicios de Proveedores Alpes
-  proveedores_alpes:
-    container_name: proveedores_alpes
-    hostname: proveedores_alpes
-    restart: on-failure
-    build:
-      context: .
-      dockerfile: proveedor.Dockerfile
-    environment:
-      - BROKER_HOST=pulsar
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-    ports:
-      - "5002:5002"
-    networks:
-      - pulsar
-    depends_on:
-      postgres:
         condition: service_healthy
-      pulsar:
-        condition: service_completed_successfully
 
   # Servicios de Anonimización de Datos
   anonimizacion_datos:
@@ -110,4 +90,4 @@ services:
       postgres:
         condition: service_healthy
       pulsar:
-        condition: service_completed_successfully
+        condition: service_healthy
