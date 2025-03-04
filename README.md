@@ -86,6 +86,10 @@ Esto iniciará los siguientes servicios:
 
 - Aplicación de imágenes médicas en el puerto 5001
 
+- Apliación de proveedores en el puerto 5002
+
+- Aplicación de anonimización en el puerto 5003
+
 3️⃣ Verificación de Servicios
 
 Después de iniciar los contenedores, verifica que los servicios están corriendo:
@@ -96,6 +100,15 @@ También puedes acceder a los logs de la aplicación:
 ```bash
 docker logs imagenes_medicas
 ```
+
+```bash
+docker logs proveedores
+```
+
+```bash
+docker logs anonimizacion
+```
+
 Si necesitas acceder a la base de datos PostgreSQL desde tu máquina, usa:
 ```bash
 psql -h localhost -U postgres -d postgres
@@ -115,6 +128,13 @@ docker-compose down
 
 6️⃣ Ejecutar endpoints en postman
 Para probar los diferentes endpoints construidos en la carpeta raiz acceder al archivo "Desarrollo de Apps no monoliticas.postman_collection.json" y copiar su contenido. Abrir postman y con la opción "import" copiar el contenido del archivo. La documentación de la respuesta de los endpoints se encuentra en https://documenter.getpostman.com/view/30550594/2sAYdeLBWp 
+
+## 🐥 BFF
+Para ejecutar el bff
+```bash
+uvicorn bff_web.main:app --host localhost --port 8003 --reload
+```
+
 
 ## 📄 Licencia
 
