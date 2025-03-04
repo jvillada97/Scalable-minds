@@ -22,7 +22,7 @@ class Config(BaseSettings):
     APP_VERSION: str = "1"
 
 settings = Config()
-app_configs: dict[str, Any] = {"title": "BFF-Web AeroAlpes"}
+app_configs: dict[str, Any] = {"title": "BFF-Web SaludTech"}
 
 app = FastAPI(**app_configs)
 tasks = list()
@@ -32,7 +32,7 @@ eventos = list()
 async def app_startup():
     global tasks
     global eventos
-    task1 = asyncio.ensure_future(suscribirse_a_topico("eventos-reserva", "aeroalpes-bff", "public/default/eventos-reserva", eventos=eventos))
+    task1 = asyncio.ensure_future(suscribirse_a_topico("eventos-imagen-medica", "saludtech-bff", "public/default/eventos-imagen-medica", eventos=eventos))
     tasks.append(task1)
 
 @app.on_event("shutdown")
