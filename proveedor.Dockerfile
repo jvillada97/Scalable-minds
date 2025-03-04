@@ -10,4 +10,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+ENV PYTHONPATH=/src
+
 CMD [ "flask", "--app", "./src/app/api", "--debug", "run", "--host=0.0.0.0", "--port=5002" ]
