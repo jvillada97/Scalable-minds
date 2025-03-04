@@ -17,7 +17,12 @@ services:
     command: ["bin/pulsar", "standalone"]
     networks:
       - pulsar
-  
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/admin/v2/clusters || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   postgres:
     image: postgres:alpine
     container_name: postgres
@@ -44,7 +49,7 @@ services:
     restart: on-failure
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: imagen_medica.Dockerfile
     environment:
       - BROKER_HOST=pulsar
       - POSTGRES_DB=postgres
@@ -52,6 +57,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
+      - PYTHONPATH=/src
     ports:
       - "5001:5001"
     networks:
@@ -60,4 +66,57 @@ services:
       postgres:
         condition: service_healthy
       pulsar:
-        condition: service_completed_successfully
+        condition: service_healthy
+
+  # Servicios de Anonimización de Datos
+  anonimizacion_datos:
+    container_name: anonimizacion_datos
+    hostname: anonimizacion_datos
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: anonimizacion.Dockerfile
+    environment:
+      - BROKER_HOST=pulsar
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - PYTHONPATH=/src
+    ports:
+      - "5003:5003"
+    networks:
+      - pulsar
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pulsar:
+        condition: service_healthy
+
+# Servicios de Proveedores
+  proveedores_alpes:
+    container_name: proveedores_alpes
+    hostname: proveedores_alpes
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: proveedor.Dockerfile
+    environment:
+      - BROKER_HOST=pulsar
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - PYTHONPATH=/src
+    ports:
+      - "5002:5002"
+    networks:
+      - pulsar
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pulsar:
+        condition: service_healthy
+

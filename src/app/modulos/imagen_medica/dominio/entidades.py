@@ -22,12 +22,8 @@ class Diagnostico(Entidad):
 @dataclass
 class ImagenMedica(AgregacionRaiz):
     url_imagen: str = ""
-    # tipoArchivo: TipoArchivo = field(default_factory=TipoArchivo)
-    # archivo: Archivo = field(default_factory=Archivo)
-    # diagnostico: Diagnostico = field(default_factory=Diagnostico)
     def crear_propiedad(self, propiedad: "ImagenMedica"):
         self.url_imagen = propiedad.url_imagen,  
 
-        self.agregar_evento(ImagenMedicaCreada(              
-        )
+        self.agregar_evento(ImagenMedicaCreada(id= self.id, url_imagen=self.url_imagen)
     )

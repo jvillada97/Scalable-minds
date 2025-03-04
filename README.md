@@ -86,6 +86,10 @@ Esto iniciará los siguientes servicios:
 
 - Aplicación de imágenes médicas en el puerto 5001
 
+- Apliación de proveedores en el puerto 5002
+
+- Aplicación de anonimización en el puerto 5003
+
 3️⃣ Verificación de Servicios
 
 Después de iniciar los contenedores, verifica que los servicios están corriendo:
@@ -96,6 +100,15 @@ También puedes acceder a los logs de la aplicación:
 ```bash
 docker logs imagenes_medicas
 ```
+
+```bash
+docker logs proveedores
+```
+
+```bash
+docker logs anonimizacion
+```
+
 Si necesitas acceder a la base de datos PostgreSQL desde tu máquina, usa:
 ```bash
 psql -h localhost -U postgres -d postgres

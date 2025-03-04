@@ -4,7 +4,10 @@ from app.seedwork.dominio.eventos import (EventoDominio)
 from datetime import datetime
 import uuid
 
+class EventoImagenMedica(EventoDominio):
+    ...
 @dataclass
-class ImagenMedicaCreada(EventoDominio):
+class ImagenMedicaCreada(EventoImagenMedica):
     id: uuid.UUID = None
-    url_image: str = None
+    url_imagen: str = None
+    
