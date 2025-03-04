@@ -12,7 +12,9 @@ from app.modulos.anonimizacion.dominio.fabricas import FabricaAnonimizacion
 from app.modulos.anonimizacion.infraestructura.dto import Anonimizacion as AnonimizacionDTO
 from app.modulos.anonimizacion.infraestructura.mapeadores import MapeadorReserva, MapadeadorEventosAnonimizacion
 from uuid import UUID
-
+from datetime import datetime
+from pulsar.schema import JsonSchema
+import uuid
 class RepositorioAnonimizacionsSQLite(RepositorioAnonimizacions):
 
     def __init__(self):
@@ -60,19 +62,15 @@ class RepositorioEventosAnonimizacionSQLAlchemy(RepositorioEventosAnonimizacions
 
     def agregar(self, evento):
         reserva_evento = self.fabrica_vuelos.crear_objeto(evento, MapadeadorEventosAnonimizacion())
-
-        parser_payload = JsonSchema(reserva_evento.data.__class__)
-        json_str = parser_payload.encode(reserva_evento.data)
-
+        
         evento_dto = EventosAnonimizacion()
-        evento_dto.id = str(evento.id)
-        evento_dto.id_entidad = str(evento.id_reserva)
-        evento_dto.fecha_evento = evento.fecha_creacion
-        evento_dto.version = str(reserva_evento.specversion)
+        evento_dto.id = str(uuid.uuid4())  
+        evento_dto.id_entidad = str(evento.id)
+        evento_dto.fecha_evento = datetime.now()
         evento_dto.tipo_evento = evento.__class__.__name__
         evento_dto.formato_contenido = 'JSON'
-        evento_dto.nombre_servicio = str(reserva_evento.service_name)
-        evento_dto.contenido = json_str
+        evento_dto.contenido = '' 
+   
 
         db.session.add(evento_dto)
 

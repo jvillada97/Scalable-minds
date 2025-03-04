@@ -7,7 +7,7 @@ from app.seedwork.aplicacion.comandos import ejecutar_commando as comando
 from app.modulos.proveedor.dominio.entidades import Proveedor
 from app.seedwork.infraestructura.uow import UnidadTrabajoPuerto
 from app.modulos.proveedor.aplicacion.mapeadores import MapeadorProveedor
-from app.modulos.proveedor.infraestructura.repositorios import RepositorioProveedors, RepositorioEventosProveedors
+from app.modulos.proveedor.infraestructura.repositorios import RepositorioProveedor, RepositorioEventosProveedor
 @dataclass
 class CrearProveedor(Comando):
     name: str = field(default_factory=str)
@@ -23,10 +23,11 @@ class CrearReservaHandler(CrearProveedorBaseHandler):
         print(reserva)
         reserva.crear_propiedad(reserva)
 
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioProveedors.__class__)
-        repositorio_eventos = self.fabrica_repositorio.crear_objeto(RepositorioEventosProveedors)
-        
-        UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, reserva, repositorio_eventos_func=repositorio_eventos.agregar)
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioProveedor)
+        repositorio_eventos = self.fabrica_repositorio.crear_objeto(RepositorioEventosProveedor)        
+  
+        UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, reserva)
+        UnidadTrabajoPuerto.registrar_batch(repositorio_eventos.agregar, reserva)      
         UnidadTrabajoPuerto.savepoint()
         UnidadTrabajoPuerto.commit()
 

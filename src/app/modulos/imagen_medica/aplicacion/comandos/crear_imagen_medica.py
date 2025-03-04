@@ -1,5 +1,6 @@
 from app.seedwork.aplicacion.comandos import Comando
 from app.modulos.imagen_medica.aplicacion.dto import ImagenMedicaDTO
+from app.modulos.anonimizacion.aplicacion.dto import AnonimizacionDTO
 from app.modulos.imagen_medica.aplicacion.comandos.base import CrearImagenMedicaBaseHandler
 from dataclasses import dataclass, field
 from app.seedwork.aplicacion.comandos import ejecutar_commando as comando
@@ -31,12 +32,19 @@ class CrearImagenMedicaHandler(CrearImagenMedicaBaseHandler):
         repositorio_eventos = self.fabrica_repositorio.crear_objeto(RepositorioEventosImagenMedicas)
 
         ##Recortar Imagen
-        reserva: Anonimizacion = self.fabrica_imagen_medica.crear_objeto(reserva_dto, MapeadorAnonimizacion())        
-        reserva.crear_propiedad(reserva)
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioAnonimizacions)
-        repositorio_eventos = self.fabrica_repositorio.crear_objeto(RepositorioEventosAnonimizacions)
+        anonimizacion_dto = AnonimizacionDTO(
+               url_imagen=comando.url_image)
+
+        anonimizacion: Anonimizacion = self.fabrica_anonimizacion.crear_objeto(anonimizacion_dto, MapeadorAnonimizacion())        
+        anonimizacion.crear_propiedad(reserva)
+        repositorio_anonimizacion = self.fabrica_repositorio_anonimizacion.crear_objeto(RepositorioAnonimizacions)
+        repositorio_eventos_anonimizacion = self.fabrica_repositorio_anonimizacion.crear_objeto(RepositorioEventosAnonimizacions)
+       
+        UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, reserva)
+        UnidadTrabajoPuerto.registrar_batch(repositorio_eventos.agregar, reserva)    
+        UnidadTrabajoPuerto.registrar_batch(repositorio_anonimizacion.agregar, reserva)
+        UnidadTrabajoPuerto.registrar_batch(repositorio_eventos_anonimizacion.agregar, reserva)    
         
-        UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, reserva, repositorio_eventos_func=repositorio_eventos.agregar)
         UnidadTrabajoPuerto.savepoint()
         UnidadTrabajoPuerto.commit()
 

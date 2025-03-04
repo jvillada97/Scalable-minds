@@ -9,5 +9,5 @@ class EventoImagenMedica(EventoDominio):
 @dataclass
 class ImagenMedicaCreada(EventoImagenMedica):
     id: uuid.UUID = None
-    url_image: str = None
+    url_imagen: str = None
     

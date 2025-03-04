@@ -9,4 +9,4 @@ class EventoAnonimizacion(EventoDominio):
 @dataclass
 class AnonimizacionCreada(EventoAnonimizacion):
     id: uuid.UUID = None
-    name: str = None
+    url_imagen: str = None

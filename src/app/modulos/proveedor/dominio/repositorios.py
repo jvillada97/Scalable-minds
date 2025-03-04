@@ -8,10 +8,10 @@ del dominio de vuelos
 from abc import ABC
 from app.seedwork.dominio.repositorios import Repositorio
 
-class RepositorioProveedors(Repositorio, ABC):
+class RepositorioProveedor(Repositorio, ABC):
     ...
 
 
-class RepositorioEventosProveedors(Repositorio, ABC):
+class RepositorioEventosProveedor(Repositorio, ABC):
     ...
 

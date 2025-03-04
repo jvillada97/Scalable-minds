@@ -23,7 +23,7 @@ class Despachador:
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
         payload = ProveedorCreadaPayload(
             id=evento.id,
-            url_imagen=evento.url_imagen
+            name=evento.name
         )
         evento_integracion = EventoProveedorCreada(data=payload)
         self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoProveedorCreada))

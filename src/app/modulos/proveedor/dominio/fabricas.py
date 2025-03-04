@@ -17,6 +17,7 @@ class FabricaProveedor(Fabrica):
     def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
         if isinstance(obj, Entidad):
             return mapeador.entidad_a_dto(obj)
+        
         else:
             compania: Proveedor = mapeador.dto_a_entidad(obj)
             return compania

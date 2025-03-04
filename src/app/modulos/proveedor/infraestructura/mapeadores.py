@@ -10,7 +10,7 @@ from app.modulos.proveedor.dominio.entidades import Proveedor
 from app.modulos.proveedor.infraestructura.dto import Proveedor as ProveedorDTO
 from app.modulos.proveedor.dominio.eventos import ProveedorCreada, EventoProveedor
 from app.seedwork.infraestructura.utils import unix_time_millis
-
+from datetime import datetime
 class MapeadorProveedor(Mapeador):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'   
 
@@ -20,11 +20,11 @@ class MapeadorProveedor(Mapeador):
     def entidad_a_dto(self, entidad: Proveedor) -> ProveedorDTO:
         
         proveedor_dto = ProveedorDTO()
-        proveedor_dto.url_imagen = entidad.url_imagen
+        proveedor_dto.name = entidad.name
         return proveedor_dto
 
     def dto_a_entidad(self, dto: ProveedorDTO) -> Proveedor:
-        proveedor = Proveedor(dto.url_imagen)   
+        proveedor = Proveedor(dto.name)   
         
         return proveedor
 class MapadeadorEventosProveedor(Mapeador):
@@ -55,17 +55,16 @@ class MapadeadorEventosProveedor(Mapeador):
             payload = ProveedorCreadaPayload(
                 id=str(evento.id), 
                 name=str(evento.name),                 
-                fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
             )
             evento_integracion = EventoProveedorCreada(id=str(evento.id))
             evento_integracion.id = str(evento.id)
-            evento_integracion.time = int(unix_time_millis(evento.fecha_creacion))
+            evento_integracion.time = int(unix_time_millis(datetime.now()))
             evento_integracion.specversion = str(version)
             evento_integracion.type = 'ProveedorCreada'
             evento_integracion.datacontenttype = 'AVRO'
             evento_integracion.service_name = 'app'
             evento_integracion.data = payload
-
+            
             return evento_integracion
                     
         if not self.es_version_valida(version):
@@ -74,4 +73,18 @@ class MapadeadorEventosProveedor(Mapeador):
         if version == 'v1':
              return v1(entidad)   
          
+    def entidad_a_dto(self, entidad: EventoProveedor) -> dict:
+        # Implementa la lógica para convertir una entidad a DTO
+        return {
+            'id': str(entidad.id),
+            'name': str(entidad.name),           
+        }
+
+    def dto_a_entidad(self, dto: dict) -> EventoProveedor:
+        # Implementa la lógica para convertir un DTO a entidad
+        return EventoProveedor(
+            id=dto['id'],
+            name=dto['name'],
+          
+        )
         

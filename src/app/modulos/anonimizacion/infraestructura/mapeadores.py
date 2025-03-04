@@ -77,4 +77,17 @@ class MapadeadorEventosAnonimizacion(Mapeador):
         if version == 'v1':
              return v1(entidad)   
          
-        
+    def entidad_a_dto(self, entidad: EventoAnonimizacion) -> dict:
+        # Implementa la lógica para convertir una entidad a DTO
+        return {
+            'id': str(entidad.id),
+            'url_imagen': str(entidad.url_imagen),           
+        }
+
+    def dto_a_entidad(self, dto: dict) -> EventoAnonimizacion:
+        # Implementa la lógica para convertir un DTO a entidad
+        return EventoAnonimizacion(
+            id=dto['id'],
+            url_imagen=dto['url_imagen'],
+          
+        )

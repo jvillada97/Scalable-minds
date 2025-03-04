@@ -12,7 +12,9 @@ from app.modulos.imagen_medica.dominio.fabricas import FabricaImagenMedica
 from app.modulos.imagen_medica.infraestructura.dto import ImagenMedica as ImagenMedicaDTO
 from app.modulos.imagen_medica.infraestructura.mapeadores import MapeadorReserva, MapadeadorEventosImagenMedica
 from uuid import UUID
-
+import uuid
+from datetime import datetime
+from pulsar.schema import JsonSchema
 class RepositorioImagenMedicasSQLite(RepositorioImagenMedicas):
 
     def __init__(self):
@@ -61,20 +63,15 @@ class RepositorioEventosImagenMedicaSQLAlchemy(RepositorioEventosImagenMedicas):
 
     def agregar(self, evento):
         reserva_evento = self.fabrica_vuelos.crear_objeto(evento, MapadeadorEventosImagenMedica())
-
-        parser_payload = JsonSchema(reserva_evento.data.__class__)
-        json_str = parser_payload.encode(reserva_evento.data)
-
+        
         evento_dto = EventosImagenMedica()
-        evento_dto.id = str(evento.id)
-        evento_dto.id_entidad = str(evento.id_reserva)
-        evento_dto.fecha_evento = evento.fecha_creacion
-        evento_dto.version = str(reserva_evento.specversion)
+        evento_dto.id = str(uuid.uuid4())  
+        evento_dto.id_entidad = str(evento.id)
+        evento_dto.fecha_evento = datetime.now()
         evento_dto.tipo_evento = evento.__class__.__name__
         evento_dto.formato_contenido = 'JSON'
-        evento_dto.nombre_servicio = str(reserva_evento.service_name)
-        evento_dto.contenido = json_str
-
+        evento_dto.contenido = '' 
+        
         db.session.add(evento_dto)
 
     def actualizar(self, reserva: ImagenMedica):

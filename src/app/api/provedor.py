@@ -17,7 +17,7 @@ import zipfile
 from app.seedwork.aplicacion.queries import ejecutar_query
 from app.seedwork.aplicacion.comandos import ejecutar_commando
 
-bp = api.crear_blueprint('provedor', '/provedor')
+bp = api.crear_blueprint('proveedor', '/proveedor')
 
 
 @bp.route('/', methods=('POST',))

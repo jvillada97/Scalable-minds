@@ -49,7 +49,7 @@ def dar_anonimizaciones():
 
             # Enviar el ZIP como respuesta
         zip_buffer.seek(0)
-        return send_file(zip_buffer, mimetype='application/zip', as_attachment=True, download_name="archivos.zip")
+        return send_file(zip_buffer, mimetype='application/zip', as_attachment=True, download_name="archivos-anonimizacion.zip")
    
     except Exception as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')

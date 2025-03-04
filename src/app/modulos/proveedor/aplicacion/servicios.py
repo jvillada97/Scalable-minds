@@ -2,7 +2,7 @@ from app.seedwork.aplicacion.servicios import Servicio
 from app.modulos.proveedor.dominio.entidades import Proveedor
 from app.modulos.proveedor.dominio.fabricas import FabricaProveedor
 from app.modulos.proveedor.infraestructura.fabricas import FabricaRepositorio
-from app.modulos.proveedor.infraestructura.repositorios import RepositorioProveedors
+from app.modulos.proveedor.infraestructura.repositorios import RepositorioProveedor
 from app.modulos.proveedor.aplicacion.mapeadores import MapeadorProveedor
 
 
@@ -29,17 +29,17 @@ class ServicioProveedor(Servicio):
         imagenMedica: Proveedor = self.fabrica_vuelos.crear_objeto(reserva_dto, MapeadorProveedor())       
 
         # Guardar la entidad en el repositorio
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioProveedors.__class__)
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioProveedor.__class__)
         repositorio.agregar(imagenMedica)
 
         return self.fabrica_vuelos.crear_objeto(imagenMedica, MapeadorProveedor())
 
     def obtener_proveedor_por_id(self, id) -> ProveedorDTO:
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioProveedors.__class__)
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioProveedor.__class__)
         proveedor = repositorio.obtener_por_id(id)
         
         # Leer el archivo de imagen desde la URL
-        with open(proveedor.url_imagen, 'rb') as file:
+        with open(proveedor.name, 'rb') as file:
             imagen_data = file.read()
         
         # Crear el DTO y agregar la imagen

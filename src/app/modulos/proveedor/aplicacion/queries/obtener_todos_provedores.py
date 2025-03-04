@@ -19,7 +19,7 @@ class ObtenerTodosProveedoresHandler(ProveedorQueryBaseHandler):
 
         for propiedad in propiedades:
             dto = ProveedorDTO(
-                url_imagen=propiedad.url_imagen
+                name=propiedad.name
                 )
             propiedades_dto.append(dto)    
         

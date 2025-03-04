@@ -25,5 +25,5 @@ class Anonimizacion(AgregacionRaiz):
     def crear_propiedad(self, propiedad: "Anonimizacion"):
         self.url_imagen = propiedad.url_imagen,  
 
-        self.agregar_evento(AnonimizacionCreada(id=self.id, url_imagen=self.url_imagen, fecha_creacion=datetime.now())
+        self.agregar_evento(AnonimizacionCreada(id= self.id, url_imagen=self.url_imagen)
     )

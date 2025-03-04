@@ -6,14 +6,16 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 """
 
 from app.config.db import db
-from app.modulos.proveedor.dominio.repositorios import RepositorioProveedors, RepositorioEventosProveedors
+from app.modulos.proveedor.dominio.repositorios import RepositorioProveedor, RepositorioEventosProveedor
 from app.modulos.proveedor.infraestructura.dto import Proveedor, EventosProveedor
 from app.modulos.proveedor.dominio.fabricas import FabricaProveedor
 from app.modulos.proveedor.infraestructura.dto import Proveedor as ProveedorDTO
 from app.modulos.proveedor.infraestructura.mapeadores import MapeadorProveedor, MapadeadorEventosProveedor
 from uuid import UUID
-
-class RepositorioProveedorsSQLite(RepositorioProveedors):
+import uuid
+from pulsar.schema import JsonSchema
+from datetime import datetime
+class RepositorioProveedorsSQLite(RepositorioProveedor): 
 
     def __init__(self):
         self._fabrica_imagenes: FabricaProveedor = FabricaProveedor()
@@ -43,7 +45,7 @@ class RepositorioProveedorsSQLite(RepositorioProveedors):
         # TODO
         raise NotImplementedError
     
-class RepositorioEventosProveedorSQLAlchemy(RepositorioEventosProveedors):
+class RepositorioEventosProveedorSQLAlchemy(RepositorioEventosProveedor):
 
     def __init__(self):
         self._fabrica_vuelos: FabricaProveedor = FabricaProveedor()
@@ -61,22 +63,18 @@ class RepositorioEventosProveedorSQLAlchemy(RepositorioEventosProveedors):
 
     def agregar(self, evento):
         reserva_evento = self.fabrica_vuelos.crear_objeto(evento, MapadeadorEventosProveedor())
-
-        parser_payload = JsonSchema(reserva_evento.data.__class__)
-        json_str = parser_payload.encode(reserva_evento.data)
-
+        print(reserva_evento)       
+       
         evento_dto = EventosProveedor()
-        evento_dto.id = str(evento.id)
-        evento_dto.id_entidad = str(evento.id_reserva)
-        evento_dto.fecha_evento = evento.fecha_creacion
-        evento_dto.version = str(reserva_evento.specversion)
+        evento_dto.id = str(uuid.uuid4())  
+        evento_dto.id_entidad = str(evento.id)
+        evento_dto.fecha_evento = datetime.now()
         evento_dto.tipo_evento = evento.__class__.__name__
         evento_dto.formato_contenido = 'JSON'
-        evento_dto.nombre_servicio = str(reserva_evento.service_name)
-        evento_dto.contenido = json_str
+        evento_dto.contenido = ''
 
         db.session.add(evento_dto)
-
+        
     def actualizar(self, reserva: Proveedor):
         raise NotImplementedError
 

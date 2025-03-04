@@ -10,9 +10,10 @@ from datetime import datetime
 class MapeadorProveedorDTOJson(AppMap):   
     
     def externo_a_dto(self, externo: dict) -> ProveedorDTO:
-        reserva_dto = ProveedorDTO()
-        reserva_dto.id = externo.get('id')
-        return reserva_dto  
+         return ProveedorDTO(
+            name=externo.get('name')
+        )
+
 
     def dto_a_externo(self, dto: ProveedorDTO) -> dict:
         return dto.__dict__
