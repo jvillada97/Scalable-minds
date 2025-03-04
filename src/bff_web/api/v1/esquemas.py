@@ -16,8 +16,7 @@ def obtener_image(root) -> typing.List["Reserva"]:
 
 @strawberry.type
 class ImagenMedica:
-    id: str
-    imagen_base64: str
+    data: str
 
 @strawberry.type
 class ImagenMedicaRespuesta:
