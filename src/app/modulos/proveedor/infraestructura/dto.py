@@ -17,7 +17,7 @@ Base = db.declarative_base()
 class Proveedor(db.Model):
     __tablename__ = "proveedor"
     id = db.Column(db.String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    url_imagen = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False)
 
 class EventosProveedor(db.Model):
     __tablename__ = "eventos_proveedor"
