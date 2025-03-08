@@ -19,7 +19,7 @@ services:
     networks:
       - pulsar
     healthcheck:
-      test: [ "CMD-SHELL", "curl -s http://localhost:8080/admin/v2/clusters | grep -q 'pulsar'" ]
+      test: [ "CMD-SHELL", "curl -s http://localhost:8080/admin/v2/clusters || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -35,7 +35,7 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_HOST: postgres  # 🔹 Cambiado localhost → postgres
+      POSTGRES_HOST: localhost  # 🔹 Cambiado localhost → postgres
       POSTGRES_PORT: 5432
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres -h postgres" ]
@@ -120,16 +120,3 @@ services:
       pulsar:
         condition: service_healthy
 
-  bff:
-    container_name: bff
-    hostname: bff
-    restart: on-failure
-    build:
-      context: .
-      dockerfile: bff.Dockerfile
-    environment:
-      - BROKER_HOST=pulsar
-    networks:
-      - pulsar
-    ports:
-      - "8003:8003"
