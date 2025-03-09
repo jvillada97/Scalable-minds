@@ -1,14 +1,34 @@
-Domain RecoleccionProcesamientoDistribucionImagenesMedicasyDiagnosticos {
-  domainVisionStatement = "Ser el líder en la recolección, procesamiento y distribución de imágenes médicas anonimizadas para el entrenamiento de modelos de IA en el sector de la salud, garantizando la máxima calidad y seguridad de los datos."
+Domain DistribucionImagenesMedicasyDiagnosticos {
+  domainVisionStatement = "Ser el líder en distribución de imágenes médicas anonimizadas para el entrenamiento de modelos de IA en el sector de la salud, garantizando la máxima calidad y seguridad de los datos."
 
-  Subdomain AnonimizacionDatos {
+  Subdomain DistribucionImagenesDesarrolladores {
     type = CORE_DOMAIN
-    domainVisionStatement = "Garantizar la privacidad y seguridad de los datos de los pacientes mediante técnicas avanzadas de anonimización, cumpliendo con normativas como HIPAA "
+    domainVisionStatement = "Facilitar el acceso a imágenes médicas anonimizadas para desarrolladores de IA, investigadores y empresas del sector de la salud."
+  }
+
+  Subdomain DistribucionImagenesClientes {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Ofrecer un servicio de distribución de imágenes médicas anonimizadas para clientes de STA, garantizando la calidad y seguridad de los datos."
+  }
+}
+
+Domain AlianzasyProcesamientoImagenesMedicasyDiagnosticos
+{
+  domainVisionStatement = "Ser el líder en la recolección, procesamiento y anonimizadas  de imágenes médicas para el entrenamiento de modelos de IA en el sector de la salud, garantizando la máxima calidad y seguridad de los datos."
+
+  Subdomain RegistroProveedorImagenes {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Facilitar el registro de proveedores de imágenes médicas para el entrenamiento de modelos de IA en el sector de la salud."
   }
 
   Subdomain IngestionDatos {
     type = CORE_DOMAIN
     domainVisionStatement = "Facilitar la recolección eficiente de datos médicos desde múltiples fuentes asegurando su integridad y disponibilidad en la nube privada de STA"
+  }
+
+  Subdomain AnonimizacionDatos {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Garantizar la privacidad y seguridad de los datos de los pacientes mediante técnicas avanzadas de anonimización, cumpliendo con normativas como HIPAA "
   }
 
   Subdomain AlmacenamientoDatos {
@@ -41,8 +61,16 @@ BoundedContext ContextoDatosMedicos implements IngestionDatos, AnonimizacionDato
     // Maneja la recolección, anonimización y enriquecimiento de datos médicos
 }
 
-BoundedContext ContextoDistribucionDatos implements AlmacenamientoDatos {
+BoundedContext ContextoAlmacenamientoDatos implements AlmacenamientoDatos {
     // Facilita el acceso seguro y escalable a los datos anonimizados y enriquecidos
+}
+
+BoundedContext ContextoRegistroProveedorImagenes implements RegistroProveedorImagenes {
+    // Facilita el registro de proveedores de imágenes médicas para el entrenamiento de modelos de IA
+}
+
+BoundedContext ContextoDistribucionDatos implements DistribucionImagenesDesarrolladores, DistribucionImagenesClientes {
+    // Distribuye imágenes médicas anonimizadas a desarrolladores, investigadores y clientes de STA
 }
 
 BoundedContext ContextoSeguridadCumplimiento implements CumplimientoNormativo, VerificacionAgrupacionDatos {
@@ -58,6 +86,8 @@ ContextMap SaludTechDeLosAlpes {
 
     contains ContextoDatosMedicos
     contains ContextoDistribucionDatos
+    contains ContextoRegistroProveedorImagenes
+    contains ContextoAlmacenamientoDatos
     contains ContextoSeguridadCumplimiento
     contains ContextoGestionUsuarios
 
@@ -70,8 +100,22 @@ ContextMap SaludTechDeLosAlpes {
     /* Relación Conformista entre Distribución de Datos y Seguridad/Cumplimiento */
     ContextoDistribucionDatos [C] <- [S] ContextoSeguridadCumplimiento
 
-    /* Gestión de Usuarios como soporte a todos los demás */
+    /* Relación de Cliente-Proveedor entre Registro de Proveedores y Gestión de Datos Médicos */
+    ContextoRegistroProveedorImagenes [U] -> [D] ContextoDatosMedicos
+
+    /* Relación de Cliente-Proveedor entre Almacenamiento de Datos y Gestión de Datos Médicos */
+    ContextoAlmacenamientoDatos [U] -> [D] ContextoDatosMedicos
+
+    /* Relación de Soporte entre Gestión de Usuarios y todos los demás contextos */
     ContextoGestionUsuarios [S] -> [C] ContextoDatosMedicos
     ContextoGestionUsuarios [S] -> [C] ContextoDistribucionDatos
     ContextoGestionUsuarios [S] -> [C] ContextoSeguridadCumplimiento
+    ContextoGestionUsuarios [S] -> [C] ContextoRegistroProveedorImagenes
+    ContextoGestionUsuarios [S] -> [C] ContextoAlmacenamientoDatos
+
+    /* Relación de Partnership entre Seguridad/Cumplimiento y Almacenamiento de Datos */
+    ContextoSeguridadCumplimiento [P] <-> [P] ContextoAlmacenamientoDatos
+
+    /* Relación de Partnership entre Seguridad/Cumplimiento y Registro de Proveedores */
+    ContextoSeguridadCumplimiento [P] <-> [P] ContextoRegistroProveedorImagenes
 }
