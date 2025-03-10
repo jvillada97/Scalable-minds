@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from app.seedwork.infraestructura.vistas import Vista
 @dataclass
 class FabricaProveedor(Fabrica):
-    def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
+    def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:        
         if isinstance(obj, Entidad):
             return mapeador.entidad_a_dto(obj)
         
