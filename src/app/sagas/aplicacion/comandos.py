@@ -29,13 +29,13 @@ class CrearSagas:
             self.saga_log.agregar('paso 3 - imagen fallida rollback proveedor')
             eliminar_proveedor(self.name)
             print('paso 3 - imagen fallida rollback proveedor')
-            return Response(json.dumps({'msg':'No se pudo realizar la crecion del proveedor'}), status=200, mimetype='application/json')
+            return Response(json.dumps({'msg':'No se pudo realizar la crecion del proveedor'}), status=409, mimetype='application/json')
         else:
             self.saga_log.agregar('paso 4 - proveedor creado')
             print('paso 4 - proveedor creado')
             self.saga_log.agregar('paso 5 - imagen medica creada')
             print('paso 5 - imagen medica creada')
-            return Response(json.dumps({'msg':'Operacion Exitosa'}), status=409, mimetype='application/json')
+            return Response(json.dumps({'msg':'Operacion Exitosa'}), status=200, mimetype='application/json')
         # except Exception as e:
         #     return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
 
