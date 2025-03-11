@@ -17,21 +17,25 @@ class CrearSagas:
         proveedor = obtener_proveedor(self.name)        
         result_create = crear_proveedor(self.name)      
         self.saga_log.agregar('paso 1 - crear proveedor')
+        print('paso 1 - crear proveedor')
         proveedor = obtener_proveedor(self.name)
         print(proveedor)
         imagen_medica = crear_imagen_medica(self.archivo_imagen)
         self.saga_log.agregar('paso 2 - crear imagen medica')     
-           
+        print('paso 2 - crear imagen medica')
         print(imagen_medica)
         if not imagen_medica:
             ##ELIMINAR LO CREADO
             self.saga_log.agregar('paso 3 - eliminar proveedor fallido')
             eliminar_proveedor(self.name)
+            print('paso 3 - eliminar proveedor fallido')
             return Response(json.dumps({'msg':'No se pudo realizar la crecion del proveedor'}), status=409, mimetype='application/json')
         else:
             self.saga_log.agregar('paso 4 - proveedor creado')
+            print('paso 4 - proveedor creado')
             self.saga_log.agregar('paso 5 - imagen medica creada')
-            return proveedor
+            print('paso 5 - imagen medica creada')
+            return Response(json.dumps({'msg':'Operacion Exitosa'}), status=409, mimetype='application/json')
         # except Exception as e:
         #     return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
 
