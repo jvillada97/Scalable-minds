@@ -28,6 +28,24 @@ def suscribirse_a_eventos():
         traceback.print_exc()
         if cliente:
             cliente.close()
+            
+def suscribirse_a_proveedor_eliminada():
+    cliente = None
+    try:
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        consumidor = cliente.subscribe('eventos-proveedor-eliminada', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='propiedadesalpes-sub-eventos', schema=AvroSchema(EventoPropiedadEliminada))
+
+        while True:
+            mensaje = consumidor.receive()
+            datos_mensaje = mensaje.value()
+            print(F'INFO: Se recibe evento (ProveedorEliminada) => [{datos_mensaje.data}]')          
+            consumidor.acknowledge(mensaje)     
+        cliente.close()
+    except:
+        print('ERROR: Suscribiendose al tópico de eventos!')
+        traceback.print_exc()
+        if cliente:
+            cliente.close()          
 
 def suscribirse_a_comandos():
     cliente = None

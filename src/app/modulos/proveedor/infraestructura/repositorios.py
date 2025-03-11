@@ -45,6 +45,12 @@ class RepositorioProveedorsSQLite(RepositorioProveedor):
         # TODO
         raise NotImplementedError
     
+    def obtener_por_nombre(self, name: str) -> Proveedor:
+        compania_dto = db.session.query(ProveedorDTO).filter_by(name=name).first() 
+        if  compania_dto is None:
+            return 
+        return self.fabrica_imagenes.crear_objeto(compania_dto, MapeadorProveedor())    
+    
 class RepositorioEventosProveedorSQLAlchemy(RepositorioEventosProveedor):
 
     def __init__(self):

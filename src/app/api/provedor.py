@@ -10,6 +10,9 @@ from flask import redirect, render_template, request, session, url_for
 from flask import Response, send_file
 from app.modulos.proveedor.aplicacion.mapeadores import MapeadorProveedorDTOJson
 from app.modulos.proveedor.aplicacion.comandos.crear_provedor import CrearProveedor
+from app.modulos.proveedor.aplicacion.comandos.eliminar_proveedor import EliminarProveedor
+from app.modulos.proveedor.aplicacion.queries.obtener_proveedor import ObtenerProveedorPorNombre
+
 import os
 import io
 import mimetypes
@@ -37,3 +40,30 @@ def proveedor():
     
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
+    
+@bp.route('/<name>', methods=['GET'])
+def dar_proveedor_por_nombre_usando_query(name):
+    try:
+         map_compania = MapeadorProveedorDTOJson()
+         print(name)
+         query_resultado = ejecutar_query(ObtenerProveedorPorNombre(name))
+         
+         if query_resultado.resultado is None:             
+            return Response(json.dumps(dict(error="No se encontro Proveedor")), status=400, mimetype="application/json")
+        
+         compania = map_compania.dto_a_externo(query_resultado.resultado)
+         return compania
+    except ExcepcionDominio as e:
+        return Response(json.dumps(dict(error=str(e))), status=404, mimetype='application/json')
+    
+@bp.route('/<name>', methods=['DELETE'])
+def eliminar_proveedor(name):
+    try:
+        # Aquí deberías llamar a un comando o servicio para eliminar el proveedor
+        # Por ejemplo:
+        comando = EliminarProveedor(name=name)
+        ejecutar_commando(comando)
+        
+        return {"message": "Proveedor eliminado exitosamente"}, 200
+    except ExcepcionDominio as e:
+        return Response(json.dumps(dict(error=str(e))), status=404, mimetype='application/json')

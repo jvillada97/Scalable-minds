@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 from app.modulos.proveedor.dominio.objetos_valor import TipoArchivo, Archivo, Etiqueta, Patologia, Modalidad
 
 
-from .eventos import ProveedorCreada
+from .eventos import ProveedorCreada, ProveedorEliminada
 
 @dataclass
 class Proveedor(AgregacionRaiz):    
@@ -20,3 +20,11 @@ class Proveedor(AgregacionRaiz):
 
         self.agregar_evento(ProveedorCreada(id= self.id, name=self.name )
     )
+        
+    def eliminar_propiedad(self, propiedad: "Proveedor"):
+        self.name = propiedad.name
+        self.agregar_evento(ProveedorEliminada(
+            name=str(self.name)
+        )
+    )
+  
