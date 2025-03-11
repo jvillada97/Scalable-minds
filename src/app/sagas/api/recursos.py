@@ -9,10 +9,11 @@ bp = api.crear_blueprint('saga-proveedores', '/saga-proveedores')
 
 @bp.route('/crear-proveedor', methods=['POST'])
 def crear():
-    try:
-        proveedor_dict = request.get_json()
-        resultado = CrearSagas(proveedor_dict).execute()
-        return resultado 
+    try:     
+        name = request.values.get('name')
+        archivo_imagen = request.files.get('archivo_imagen')   
+        resultado = CrearSagas(name, archivo_imagen).execute()
+        return resultado    
     except Exception as e:
         print(e)
 
