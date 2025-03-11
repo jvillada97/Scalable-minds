@@ -26,10 +26,10 @@ class CrearSagas:
         print(imagen_medica)
         if not imagen_medica:
             ##ELIMINAR LO CREADO
-            self.saga_log.agregar('paso 3 - eliminar proveedor fallido')
+            self.saga_log.agregar('paso 3 - imagen fallida rollback proveedor')
             eliminar_proveedor(self.name)
-            print('paso 3 - eliminar proveedor fallido')
-            return Response(json.dumps({'msg':'No se pudo realizar la crecion del proveedor'}), status=409, mimetype='application/json')
+            print('paso 3 - imagen fallida rollback proveedor')
+            return Response(json.dumps({'msg':'No se pudo realizar la crecion del proveedor'}), status=200, mimetype='application/json')
         else:
             self.saga_log.agregar('paso 4 - proveedor creado')
             print('paso 4 - proveedor creado')
