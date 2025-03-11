@@ -33,7 +33,15 @@ class ServicioProveedor(Servicio):
         repositorio.agregar(imagenMedica)
 
         return self.fabrica_vuelos.crear_objeto(imagenMedica, MapeadorProveedor())
+    
+    def eliminar_proveedor(self, reserva_dto: ProveedorDTO) -> ProveedorDTO:
+       
+        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioProveedor.__class__)
+        imagenMedica = repositorio.obtener_por_id(id)     
 
+        repositorio.eliminar(imagenMedica)
+
+        return self.fabrica_vuelos.crear_objeto(imagenMedica, MapeadorProveedor())
     def obtener_proveedor_por_id(self, id) -> ProveedorDTO:
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioProveedor.__class__)
         proveedor = repositorio.obtener_por_id(id)

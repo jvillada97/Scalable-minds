@@ -24,8 +24,8 @@ class MapeadorProveedor(Mapeador):
         return proveedor_dto
 
     def dto_a_entidad(self, dto: ProveedorDTO) -> Proveedor:
-        proveedor = Proveedor(dto.name)   
-        
+        proveedor = Proveedor()   
+        proveedor.name = dto.name
         return proveedor
 class MapadeadorEventosProveedor(Mapeador):
 

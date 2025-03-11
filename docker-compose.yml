@@ -1,10 +1,14 @@
+version: '3.8'
+
 networks:
   pulsar:
     driver: bridge
+  saganet:
+    driver: bridge
+  servicesnet:
+    driver: bridge
 
 services:
-
-  # Pulsar stand oalone
   pulsar:
     image: apachepulsar/pulsar:3.2.0
     container_name: pulsar
@@ -42,7 +46,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # Servicios de Proveedores Alpes
   imagenes_medicas:
     container_name: imagenes_medicas
     hostname: imagenes_medicas
@@ -68,7 +71,6 @@ services:
       pulsar:
         condition: service_healthy
 
-  # Servicios de Anonimización de Datos
   anonimizacion_datos:
     container_name: anonimizacion_datos
     hostname: anonimizacion_datos
@@ -94,7 +96,6 @@ services:
       pulsar:
         condition: service_healthy
 
-# Servicios de Proveedores
   proveedores_alpes:
     container_name: proveedores_alpes
     hostname: proveedores_alpes
@@ -120,3 +121,49 @@ services:
       pulsar:
         condition: service_healthy
 
+  sagadb:
+    image: postgres:latest
+    container_name: sagadb
+    ports:
+      - "5435:5432"
+    networks:
+      - saganet
+    environment:
+      POSTGRES_DB: sagadb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+
+  saga:
+    container_name: saga
+    hostname: saga
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: saga.Dockerfile
+    environment:
+      - BROKER_HOST=pulsar
+      - POSTGRES_DB=sagadb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=sagadb
+      - POSTGRES_PORT=5432
+      - HOST_PROVEEDOR=http://proveedores_alpes:5002   
+      - HOST_IMAGENMEDICA=http://imagenes_medicas:5001   
+    ports:
+      - "5004:5004"
+    networks:
+      - pulsar
+      - saganet
+      - servicesnet
+    depends_on:
+      sagadb:
+        condition: service_healthy
+      pulsar:
+        condition: service_started

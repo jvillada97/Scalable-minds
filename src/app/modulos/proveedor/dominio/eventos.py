@@ -11,3 +11,7 @@ class EventoProveedor(EventoDominio):
 class ProveedorCreada(EventoProveedor):
     id: uuid.UUID = None
     name: str = None
+    
+@dataclass
+class ProveedorEliminada(EventoDominio):
+     name: str = None   
